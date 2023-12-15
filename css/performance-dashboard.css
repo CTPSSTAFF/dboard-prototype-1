@@ -34,9 +34,11 @@
 
 
 /* In case we use jQueryUI, the following overrides jQueryUI ui-widget class size of "1.2em" */
+/* 
 .ui-widget {
 	font-size: 12px;
 }
+*/
 
 
 #container {
