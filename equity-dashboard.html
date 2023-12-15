@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Boston Region MPO Equity Baseline Metric Dashboard</title>
+		
+        <!-- <link rel="stylesheet" href="libs/jquery-ui-1.10.4/css/cupertino/jquery-ui-1.10.4.custom.min.css"/> -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/cupertino/jquery-ui.min.css" 
+		     integrity="sha512-ug/p2fTnYRx/TfVgL8ejTWolaq93X+48/FLS9fKf7AiazbxHkSEENdzWkOxbjJO/X1grUPt9ERfBt21iLh2dxg==" 
+			 crossorigin="anonymous" r
+			 eferrerpolicy="no-referrer" />
+		
+		<!-- CSS specific to this app -->
+        <link rel="stylesheet" href="css/equity-dashboard.css" type="text/css">  
+        
+        <!-- jQuery library: loaded from a CDN -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
+		        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" 
+				crossorigin="anonymous" 
+				referrerpolicy="no-referrer">
+		</script>
+		
+		<!-- jQueryUI library -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" 
+		        integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" 
+		        crossorigin="anonymous" 
+		        referrerpolicy="no-referrer">
+		</script>
+		
+		<!-- Stuff for Google Analytics -->
+        <script>
+        (function(i,s,o,g,r,a,m){
+            i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();
+            a=s.createElement(o),m=s.getElementsByTagName(o)[0];
+            a.async=1;
+            a.src=g;
+            m.parentNode.insertBefore(a,m)})(window,
+                                             document,
+                                             "script",
+                                             "https://www.google-analytics.com/analytics.js",
+                                             "ga");
+            ga("create", "UA-39489988-1", {"cookieDomain":"auto"});
+            ga("set", "anonymizeIp", true);
+            ga("send", "pageview");
+        </script>
+    </head>
+    <body>   
+        <div class="ctpsHeader">
+            <div class="lightBlue"></div>
+            <div class="darkBlue"></div>
+            <div id="banner">
+                <a href="https://www.ctps.org/" target="_blank" title="Boston MPO">
+                    <img style="height:59px" src="img/ctps_header.png" title="Opens Boston MPO website in a new window">
+                </a>
+            </div>
+        </div>
+        
+        <h2>This is an H2</h2>
+		<!-- Our app -->
+        <script src="js/equity-dashboard.js"></script>  
+        <script> 
+            $(document).ready(function() { initialize(); });
+        </script>
+    </body>
+</html>
