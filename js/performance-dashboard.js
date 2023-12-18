@@ -5,6 +5,7 @@ function initialize() {
 	// Initialize the tabs controls  
 	$( "#roadway-safety-tabs" ).tabs();
 	$( "#transit-safety-tabs" ).tabs();
+	$( "#bridge-pavement-tabs" ).tabs();
 	$( "#ttr-tabs" ).tabs();
 	$( "#cmaq-tabs" ).tabs();
 	
