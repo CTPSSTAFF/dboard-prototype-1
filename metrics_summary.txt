@@ -1,0 +1,39 @@
+List of Performance Metrics by Area
+
+1. Roadway Safety
+	1. Number of fatalities
+	2. Fataility rate per 100 million vehicle-miles traveled
+	3. Number of serious injuries
+	4. Serious injury rate per 100 million vehicle-miles traveled
+	5. Number of non-motorized fatalities and non-motorized serious injuries
+
+2. Transit Safety
+	1. Total number of reportable fatalities
+	2. Fatality rate per total VRM by mode
+	3. Total number of reportable injuries
+	4. Injury rate per total VRM by mode
+	5. Total number of reportable safety events
+	6. Safety event rate per total VRM by mode
+	7. Mean distance between major mechanial failures by mode
+
+3. Bridge and Pavement Condition
+	1. Percent of pavement on the Interstate System in good condition
+	2. Percent of pavement on the Interstate System in poor condition
+	3. Percent of pavement on the non-Interstate NHS in poor condition
+	4. Percent of NHS bridges by deck area classified in poor condition
+
+4. Transit Asset Management
+	1. Percent of vehicles have have met or exceeded their ULB
+	2. Percent of vehicles within a particular asset class that have met or exceeded their ULB
+	3. Percent of track segments with performance restrictions
+	4. Percent of facilities within an asset class rated below 3.0 on the FTA's Transit Economic Requirements scale
+
+5. Travel Time Reliability
+	1. Percent of the person-miles traveled on the Interstate System that are reliable
+	2. Percent of the person-miles traveled on the non-Interstate NHS that are reliable
+	3. Truck travel-time reliability index
+	3. Annual hours of peak hour excessive delay per capita on NHS roadways
+
+6. Congestion Management and AIr Quality
+	1. Percentage of non-single-occupant vehicle travel
+	2. Total emissions reduction for applicable pollutants and percursors of CMAQ-funded projects in designated nonattainment and maintenance areas
