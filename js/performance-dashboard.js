@@ -3,8 +3,10 @@ function initialize() {
     $( "#accordion" ).accordion();
 	
 	// Initialize the tabs controls  
+	$( "#roadway-safety-tabs" ).tabs();
 	$( "#ttr-tabs" ).tabs();
 	$( "#cmaq-tabs" ).tabs();
+	
 	
 	return;
 }
