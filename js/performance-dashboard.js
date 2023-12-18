@@ -6,6 +6,7 @@ function initialize() {
 	$( "#roadway-safety-tabs" ).tabs();
 	$( "#transit-safety-tabs" ).tabs();
 	$( "#bridge-pavement-tabs" ).tabs();
+	$( "#tam-tabs" ).tabs();
 	$( "#ttr-tabs" ).tabs();
 	$( "#cmaq-tabs" ).tabs();
 	
