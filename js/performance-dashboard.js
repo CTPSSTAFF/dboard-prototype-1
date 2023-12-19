@@ -117,6 +117,27 @@ function initialize_roadway_safety() {
 	
 } // initialize_roadway_safety
 
+// CSV parser for roadway safety CSV file
+var rs_RowConverter = function(d) {
+	return {
+		perf_meas:		d['Performance Measure'],
+		targ_2023:		+d['2023 Targets'],
+		targ_2022:		+d['2022 Targets'],
+		perf_2022:		+d['2022 Performance'],
+		targ_2021:		+d['2021 Targets'],
+		perf_2021:		+d['2021 Performance'],
+		targ_2020:		+d['2020 Targets'],
+		perf_2020:		+d['2020 Performance'],
+		targ_2019:		+d['2019 Targets'],
+		perf_2019:		+d['2019 Performance']
+	};
+};
+
+var roadwaySafetyURL = 'csv/roadway_safety.csv';
+
+// C'est une petit hacque temporaire, Pierre
+var rs_data = [];
+
 function initialize() {
 	// Initialize the accordion control
     $( "#accordion" ).accordion( { heightStyle: "content" } );
@@ -129,6 +150,15 @@ function initialize() {
 	$( "#ttr-tabs" ).tabs( { heightStyle: "auto" } );
 	$( "#cmaq-tabs" ).tabs( { heightStyle: "auto" } );
 	
+	// Test loading one CSV file  
+	d3.csv(roadwaySafetyURL, rs_RowConverter).then(
+		function(raw_rs_data){
+			rs_data = raw_rs_data;
+			var _DEBUG_HOOK_ = 0;
+		});
+	
+	// Once the code for the viz-generation is aligned with the data,
+	// the following statement should be moved _inside_ the above function.
 	initialize_roadway_safety();
 	
 	return;
