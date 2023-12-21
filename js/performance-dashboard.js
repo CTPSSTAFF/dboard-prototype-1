@@ -145,50 +145,83 @@ var rs_RowConverter = function(d) {
 var ts_RowConverter = function(d) {
 	return {
 		agency:					d['Agency'],
-		targ_2023_fat:			d['2023 Target - Fatalities'],
-		perf_2019_21_fat:		d['2019-21 Performance - Fatalities'],
+		targ_2023_fat:			+d['2023 Target - Fatalities'],
+		perf_2019_21_fat:		+d['2019-21 Performance - Fatalities'],
 		
-		targ_2023_fat_rate:		d['2023 Target - Fatality Rate'],
-		targ_2019_21_fat_rate:	d['2019-21 Performance - Fatality Rate'],
+		targ_2023_fat_rate:		+d['2023 Target - Fatality Rate'],
+		targ_2019_21_fat_rate:	+d['2019-21 Performance - Fatality Rate'],
 		
-		targ_2023_inj:			d['2023 Target - Injuries'],
-		perf_2019_21_inj:		d['2019-21 Performance - Injuries'],
+		targ_2023_inj:			+d['2023 Target - Injuries'],
+		perf_2019_21_inj:		+d['2019-21 Performance - Injuries'],
 		
 		// targ_2023_inj_rate:		d['2023 Target - Injury Rate'],
 	
 		// targ_2023_saf:		d['2023 Target - Safety Events'],
 		
-		targ_2023_saf_rate:		d['2023 Target - Safety Event Rate'],
-		targ_2023_sys:			d['2023 Target - System Reliability'],
-		perf_2019_21_sys:		d['2019-21 Performance - System Reliability']
+		targ_2023_saf_rate:		+d['2023 Target - Safety Event Rate'],
+		targ_2023_sys:			+d['2023 Target - System Reliability'],
+		perf_2019_21_sys:		+d['2019-21 Performance - System Reliability']
 	};
 };
 
-
 // CSV parser for bridge and pavement CSV file
 var b_and_p_RowConverter = function(d) {
-	
+	return {
+		perf_meas:	 	d['Performance Measure'],
+		baseline:		+d['Baseline'],
+		two_yr_targ:	+d['Two-Year Target (CY 2023)'],
+		four_yr_targ:	+d['Four-Year Target (CY 2025)']
+	}
 };
 
 // CSV parser for TAM (transit asset management) CSV file
 var tam_RowConverter = function(d) {
-	
+	return {
+		pm_or_ac:	d['Performance Measure or Asset Category'],
+		agency:		d['Agency'],
+		mode:		d['Mode'],
+		targ_2023:	+d['2023 Target (Percent)'],
+		perf_2022:	+d['2022 Performance (Percent)'],
+		targ_2022:	+d['2022 Target (Percent)']
+	}
 };
 
 // CSV parser for TTR (travel time reliability) CSV file
 var ttr_RowConverter = function(d) {
-	
+	return {
+		perf_meas:		d['Performance Measure'],
+		targ_2025:		+d['Four-Year Target (2025)'],
+		targ_2023:		+d['Two-Year Target (2023)'],
+		targ_2021:		+d['2021 Target'],
+		perf_2021:		+d['2021 Performance'],
+		targ_2019:		+d['2019 Target'],
+		perf_2019:		+d['2019 Performance']
+	}
 };
 
 // CSV parser for CMAQ (congestion management and air quality) CSV file
 var cmaq_RowConverter = function(d) {
-	
+	return {
+		perf_meas:		d['Performance Measure'],
+		geo_area:		d['Geographic Area'],
+		baseline:		+d['Baseline'],
+		targ_2023:		+d['Two-Year Target (2023)'],
+		targ_2025:		+d['Four-Year Target (2025)'],
+		targ_2019:		+d['Two-Year Target (2019)'],
+		perf_2019:		+d['Two-Year Performance (2019)'],
+		targ_2021:		+d['Four-Year Target (2021)'],
+		perf_2021:		+d['Four-Year Performance (2021)']
+	}
 };
 
 
 // C'est une petit hacque temporaire, Pierre
 var rs_data = []
-    ts_data = [];
+    ts_data = [],
+	bp_data = [],
+	tam_data = [],
+	ttr_data = [],
+	cmaq_data = [];
 
 function initialize() {
 	// Initialize the accordion control
@@ -205,27 +238,24 @@ function initialize() {
 	
 	Promise.all([
 		d3.csv(roadwaySafetyURL, rs_RowConverter),
-		d3.csv(transitSafetyURL, ts_RowConverter)
+		d3.csv(transitSafetyURL, ts_RowConverter),
+		d3.csv(bridgeAndPavementURL, b_and_p_RowConverter),
+		d3.csv(tamURL, tam_RowConverter),
+		d3.csv(ttrURL, ttr_RowConverter),
+		d3.csv(cmaqURL, cmaq_RowConverter)
 	]).then(function(files) {
 		rs_data = files[0];
 		ts_data = files[1];
+		bp_data = files[2];
+		tam_data = files[3];
+		ttr_data = files[4];
+		cmaq_data = files[5];
 		var _DEBUG_HOOK = 0;
 	}).catch(function(err) {
 		alert('Error loading CSV file(s). Exiting.');
 	});
 	
-/*	
-	// Test loading 2 CSV files
-	d3.csv(roadwaySafetyURL, rs_RowConverter).then(
-		function(raw_rs_data){
-			rs_data = raw_rs_data;
-			d3.csv(transitSafetyURL, ts_RowConverter).then(
-				function(raw_ts_data) {
-					ts_data = raw_ts_data;
-					var _DEBUG_HOOK = 0;
-				});
-		});
-*/
+
 
 	
 	// Once the code for the viz-generation is aligned with the data,
