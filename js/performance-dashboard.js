@@ -117,6 +117,14 @@ function initialize_roadway_safety() {
 	
 } // initialize_roadway_safety
 
+// URLs for CSV files to be loaded
+var roadwaySafetyURL 	= 'csv/roadway_safety.csv',
+	transitSafetyURL 	= 'csv/transit_safety.csv',
+	bridgeAndPavementURL = 'csv/bridge_and_pavement.csv',
+	tamURL				= 'csv/tam.csv',
+	ttrURL				= 'csv/ttr.csv',
+	cmaqURL				= 'csv/cmaq.csv';
+
 // CSV parser for roadway safety CSV file
 var rs_RowConverter = function(d) {
 	return {
@@ -133,10 +141,54 @@ var rs_RowConverter = function(d) {
 	};
 };
 
-var roadwaySafetyURL = 'csv/roadway_safety.csv';
+// CSV parser for transit safety CSV file
+var ts_RowConverter = function(d) {
+	return {
+		agency:					d['Agency'],
+		targ_2023_fat:			d['2023 Target - Fatalities'],
+		perf_2019_21_fat:		d['2019-21 Performance - Fatalities'],
+		
+		targ_2023_fat_rate:		d['2023 Target - Fatality Rate'],
+		targ_2019_21_fat_rate:	d['2019-21 Performance - Fatality Rate'],
+		
+		targ_2023_inj:			d['2023 Target - Injuries'],
+		perf_2019_21_inj:		d['2019-21 Performance - Injuries'],
+		
+		// targ_2023_inj_rate:		d['2023 Target - Injury Rate'],
+	
+		// targ_2023_saf:		d['2023 Target - Safety Events'],
+		
+		targ_2023_saf_rate:		d['2023 Target - Safety Event Rate'],
+		targ_2023_sys:			d['2023 Target - System Reliability'],
+		perf_2019_21_sys:		d['2019-21 Performance - System Reliability']
+	};
+};
+
+
+// CSV parser for bridge and pavement CSV file
+var b_and_p_RowConverter = function(d) {
+	
+};
+
+// CSV parser for TAM (transit asset management) CSV file
+var tam_RowConverter = function(d) {
+	
+};
+
+// CSV parser for TTR (travel time reliability) CSV file
+var ttr_RowConverter = function(d) {
+	
+};
+
+// CSV parser for CMAQ (congestion management and air quality) CSV file
+var cmaq_RowConverter = function(d) {
+	
+};
+
 
 // C'est une petit hacque temporaire, Pierre
-var rs_data = [];
+var rs_data = []
+    ts_data = [];
 
 function initialize() {
 	// Initialize the accordion control
@@ -150,15 +202,34 @@ function initialize() {
 	$( "#ttr-tabs" ).tabs( { heightStyle: "auto" } );
 	$( "#cmaq-tabs" ).tabs( { heightStyle: "auto" } );
 	
-	// Test loading one CSV file  
+	
+	Promise.all([
+		d3.csv(roadwaySafetyURL, rs_RowConverter),
+		d3.csv(transitSafetyURL, ts_RowConverter)
+	]).then(function(files) {
+		rs_data = files[0];
+		ts_data = files[1];
+		var _DEBUG_HOOK = 0;
+	}).catch(function(err) {
+		alert('Error loading CSV file(s). Exiting.');
+	});
+	
+/*	
+	// Test loading 2 CSV files
 	d3.csv(roadwaySafetyURL, rs_RowConverter).then(
 		function(raw_rs_data){
 			rs_data = raw_rs_data;
-			var _DEBUG_HOOK_ = 0;
+			d3.csv(transitSafetyURL, ts_RowConverter).then(
+				function(raw_ts_data) {
+					ts_data = raw_ts_data;
+					var _DEBUG_HOOK = 0;
+				});
 		});
+*/
+
 	
 	// Once the code for the viz-generation is aligned with the data,
-	// the following statement should be moved _inside_ the above function.
+	// the following statement should be moved _inside_ the above 'then' function
 	initialize_roadway_safety();
 	
 	return;
