@@ -7,10 +7,3 @@ CATA,Safety,Fixed Route,0,0,0,0,1,0.2,0.5,0.1,2.5,2.4,1.5,0.2,70000,73603
 CATA,Safety,Demand Response,0,0,0,0,1,0.2,0.5,0.2,1.5,1.2,1,0.8,135000,133848
 MWRTA,Safety,Fixed Route,0,0,0,0,12,0.6,1,0.05,15,1.4,1.25,0.13,75000,128551
 MWRTA,Safety,Demand Response,0,0,0,0,8,0.6,1,0.07,10,1.6,1.25,0.2,75000,67468
-,,,,,,,,,,,,,,,,
-SOURCES,,,,,,,,,,,,,,,,
-Performance,https://docs.google.com/presentation/d/12aDqz8Z7SaOLnFF0nEsliaiKPfV6FgPZ/edit?usp=drive_link&ouid=110999150964015840561&rtpof=true&sd=true,,,,,,,,,,,,,,,
-Targets,https://docs.google.com/presentation/d/12aDqz8Z7SaOLnFF0nEsliaiKPfV6FgPZ/edit?usp=drive_link&ouid=110999150964015840561&rtpof=true&sd=true,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,
-NOTE: CATA and MWRTA Performance are for 2018-2022,,,,,,,,,,,,,,,,
-"NOTE: MWRTA measured events per 100,000. CATA and MBTA measured events per 1,000,000",,,,,,,,,,,,,,,,
