@@ -226,10 +226,9 @@ var rs_data = []
 	tam_data = [],
 	ttr_data = [],
 	cmaq_data = [];
-	
-function roadway_safety_viz() {
-	// Roadway fatalities
-	road_fat = _.find(rs_data, function(o) { return o.perf_meas == 'Number of fatalities'; });
+
+function roadway_fatality_viz() {
+	var road_fat = _.find(rs_data, function(o) { return o.perf_meas == 'Number of fatalities'; });
 	
 	var xValues = ['2023' , '2022', '2021', '2020', '2019'];
 	              
@@ -237,12 +236,7 @@ function roadway_safety_viz() {
 	                     road_fat.targ_2020, road_fat.targ_2019 ];
 	var yValues_perf = [ 0, road_fat.perf_2022, road_fat.perf_2021,
 	                     road_fat.perf_2020, road_fat.perf_2019 ];
-/*
-	var yValues_targ = [ 0, 20, 30, 40, 50 ];
-	var yValues_perf   = [ 9, 25, 30, 41, 32 ];
-*/
-						 
-						 
+
 	var trace_targ = {
 	  x: xValues,
 	  y: yValues_targ,
@@ -285,9 +279,37 @@ function roadway_safety_viz() {
 		title: 'Roadway Fatalities'
 	};
 
-	Plotly.newPlot('roadway-fatalities-viz', data, layout);
-						 
-} // roadway_safety_viz
+	Plotly.newPlot('roadway-fatalities-viz', data, layout);		
+} // roadway_fatality_viz
+
+function roadway_fatality_rate_viz() {
+	var road_fat_rate = _.find(rs_data, function(o) { 
+											return o.perf_meas == 'Fatality rate per 100 million vehicle-miles traveled'; });
+	
+	var xValues = ['2023' , '2022', '2021', '2020', '2019'];	
+}
+
+function roadway_injury_viz() {
+
+}
+
+function roadway_injury_rate_viz() {
+
+}
+
+function roadway_nonmotorized_viz() {
+	
+}
+	
+function roadway_safety_viz() {
+	roadway_fatality_viz();
+	roadway_fatality_rate_viz();
+	roadway_injury_viz();
+	roadway_injury_rate_viz();
+	roadway_nonmotorized_viz();
+} // roadway_safey_viz	
+
+
 
 function initialize() {
 	// Initialize the accordion control
