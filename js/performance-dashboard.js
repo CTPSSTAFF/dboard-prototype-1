@@ -1,6 +1,8 @@
 function initialize_roadway_safety() {
 		/////////////////////////////////////////////////
 	// Generate viz of number of (motorized) fatalities
+	
+/*
 	var xValue = ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'];
 	var yValue = [120, 131, 102, 120, 117, 140,  99, 99, 106];
 
@@ -27,6 +29,8 @@ function initialize_roadway_safety() {
 	  barmode: 'stack'
 	};
 	Plotly.newPlot('roadway-fatalities-viz', fatalityData, layout);
+	
+*/
 	
 	/////////////////////////////////////////////////
 	// Generate viz of number of (motorized) injuries
@@ -222,6 +226,68 @@ var rs_data = []
 	tam_data = [],
 	ttr_data = [],
 	cmaq_data = [];
+	
+function roadway_safety_viz() {
+	// Roadway fatalities
+	road_fat = _.find(rs_data, function(o) { return o.perf_meas == 'Number of fatalities'; });
+	
+	var xValues = ['2023' , '2022', '2021', '2020', '2019'];
+	              
+	var yValues_targ = [ road_fat.targ_2023, road_fat.targ_2022, road_fat.targ_2021,
+	                     road_fat.targ_2020, road_fat.targ_2019 ];
+	var yValues_perf = [ 0, road_fat.perf_2022, road_fat.perf_2021,
+	                     road_fat.perf_2020, road_fat.perf_2019 ];
+/*
+	var yValues_targ = [ 0, 20, 30, 40, 50 ];
+	var yValues_perf   = [ 9, 25, 30, 41, 32 ];
+*/
+						 
+						 
+	var trace_targ = {
+	  x: xValues,
+	  y: yValues_targ,
+	  type: 'bar',
+	  name: 'Target',
+	  text: yValues_targ.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  opacity: 0.5,
+	  marker: {
+		color: 'rgb(158,202,225)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+
+	var trace_perf = {
+	  x: xValues,
+	  y: yValues_perf,
+	  type: 'bar',
+	  name: 'Performance',
+	  text: yValues_perf.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  marker: {
+		color: 'rgba(58,200,225,.5)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+	
+	var data = [trace_perf,trace_targ];
+
+	var layout = {
+		xaxis: { type: 'category' },
+		title: 'Roadway Fatalities'
+	};
+
+	Plotly.newPlot('roadway-fatalities-viz', data, layout);
+						 
+} // roadway_safety_viz
 
 function initialize() {
 	// Initialize the accordion control
@@ -250,8 +316,10 @@ function initialize() {
 		tam_data = files[3];
 		ttr_data = files[4];
 		cmaq_data = files[5];
+		roadway_safety_viz();
 		var _DEBUG_HOOK = 0;
 	}).catch(function(err) {
+		var _DEBUG_HOOK = 0;
 		alert('Error loading CSV file(s). Exiting.');
 	});
 	
