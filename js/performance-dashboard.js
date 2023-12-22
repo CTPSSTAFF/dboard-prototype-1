@@ -30,8 +30,6 @@ function initialize_roadway_safety() {
 	};
 	Plotly.newPlot('roadway-fatalities-viz', fatalityData, layout);
 	
-*/
-	
 	/////////////////////////////////////////////////
 	// Generate viz of number of (motorized) injuries
 	var xValue = ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'];
@@ -60,6 +58,7 @@ function initialize_roadway_safety() {
 	  barmode: 'stack'
 	};
 	Plotly.newPlot('roadway-injuries-viz', injuriesData, layout);
+
 	
 	////////////////////////////////////////////////////
 	// Generate viz of number of nonmotorized fatalities
@@ -118,7 +117,7 @@ function initialize_roadway_safety() {
 	  barmode: 'stack'
 	};
 	Plotly.newPlot('nonmotorized-injuries-viz', nonmotInjuriesData, layout);
-	
+*/	
 } // initialize_roadway_safety
 
 // URLs for CSV files to be loaded
@@ -339,16 +338,169 @@ function roadway_fatality_rate_viz() {
 }
 
 function roadway_injury_viz() {
+	var road_inj = _.find(rs_data, function(o) {  return o.perf_meas == 'Number of serious injuries'; });
+	
+	var xValues = ['2023' , '2022', '2021', '2020', '2019'];	
+	
+	var yValues_targ = [ road_inj.targ_2023, road_inj.targ_2022, road_inj.targ_2021,
+	                     road_inj.targ_2020, road_inj.targ_2019 ];
+	var yValues_perf = [ 0, road_inj.perf_2022, road_inj.perf_2021,
+	                     road_inj.perf_2020, road_inj.perf_2019 ];
 
+	var trace_targ = { 
+	  x: xValues,
+	  y: yValues_targ,
+	  type: 'bar',
+	  name: 'Target',
+	  text: yValues_targ.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  opacity: 0.5,
+	  marker: {
+		color: 'rgb(158,202,225)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+
+	var trace_perf = {
+	  x: xValues,
+	  y: yValues_perf,
+	  type: 'bar',
+	  name: 'Performance',
+	  text: yValues_perf.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  marker: {
+		color: 'rgba(58,200,225,.5)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+	
+	var data = [trace_perf,trace_targ];
+
+	var layout = {
+		xaxis: { type: 'category' },
+		title: 'Number of Serious Injuries on Roadways'
+	};
+
+	Plotly.newPlot('roadway-injuries-viz', data, layout);	
 }
 
 function roadway_injury_rate_viz() {
+	var road_inj_rate = _.find(rs_data, function(o) {  return o.perf_meas == 'Serious injury rate per 100 million vehicle-miles traveled'; });
+	
+	var xValues = ['2023' , '2022', '2021', '2020', '2019'];
+	
+	var yValues_targ = [ road_inj_rate.targ_2023, road_inj_rate.targ_2022, road_inj_rate.targ_2021,
+	                     road_inj_rate.targ_2020, road_inj_rate.targ_2019 ];
+	var yValues_perf = [ 0, road_inj_rate.perf_2022, road_inj_rate.perf_2021,
+	                     road_inj_rate.perf_2020, road_inj_rate.perf_2019 ];
 
-}
+	var trace_targ = { 
+	  x: xValues,
+	  y: yValues_targ,
+	  type: 'bar',
+	  name: 'Target',
+	  text: yValues_targ.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  opacity: 0.5,
+	  marker: {
+		color: 'rgb(158,202,225)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+
+	var trace_perf = {
+	  x: xValues,
+	  y: yValues_perf,
+	  type: 'bar',
+	  name: 'Performance',
+	  text: yValues_perf.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  marker: {
+		color: 'rgba(58,200,225,.5)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+	
+	var data = [trace_perf,trace_targ];
+
+	var layout = {
+		xaxis: { type: 'category' },
+		title: 'Roadway Serioius Injury Rate per 100 million vehicle-miles traveled'
+	};
+
+	Plotly.newPlot('roadway-injury-rate-viz', data, layout);	
+} // roadway_injury_rate_viz
 
 function roadway_nonmotorized_viz() {
+	var non_mot = _.find(rs_data, function(o) {  return o.perf_meas == 'Number of non-motorized fatalities and non-motorized serious injuries'; });
 	
-}
+	var xValues = ['2023' , '2022', '2021', '2020', '2019'];
+
+	var yValues_targ = [ non_mot.targ_2023, non_mot.targ_2022, non_mot.targ_2021,
+	                     non_mot.targ_2020, non_mot.targ_2019 ];
+	var yValues_perf = [ 0, non_mot.perf_2022, non_mot.perf_2021,
+	                     non_mot.perf_2020, non_mot.perf_2019 ];
+
+	var trace_targ = { 
+	  x: xValues,
+	  y: yValues_targ,
+	  type: 'bar',
+	  name: 'Target',
+	  text: yValues_targ.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  opacity: 0.5,
+	  marker: {
+		color: 'rgb(158,202,225)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+	
+	var trace_perf = {
+	  x: xValues,
+	  y: yValues_perf,
+	  type: 'bar',
+	  name: 'Performance',
+	  text: yValues_perf.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  marker: {
+		color: 'rgba(58,200,225,.5)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+	
+	var data = [trace_perf,trace_targ];
+
+	var layout = {
+		xaxis: { type: 'category' },
+		title: 'Number of non-motorized fatalities and non-motorized serious injuries'
+	};
+
+	Plotly.newPlot('roadway-nonmotorized-viz', data, layout);
+} // roadway_non_motorized_viz
 	
 function roadway_safety_viz() {
 	roadway_fatality_viz();
@@ -366,11 +518,11 @@ function initialize() {
 	
 	// Initialize the tabs controls  
 	$( "#roadway-safety-tabs" ).tabs( { heightStyle: "content" } );
-	$( "#transit-safety-tabs" ).tabs( { heightStyle: "auto" } );
-	$( "#bridge-pavement-tabs" ).tabs( { heightStyle: "auto" } );
-	$( "#tam-tabs" ).tabs( { heightStyle: "auto" }  );
-	$( "#ttr-tabs" ).tabs( { heightStyle: "auto" } );
-	$( "#cmaq-tabs" ).tabs( { heightStyle: "auto" } );
+	$( "#transit-safety-tabs" ).tabs( { heightStyle: "content" } );
+	$( "#bridge-pavement-tabs" ).tabs( { heightStyle: "content" } );
+	$( "#tam-tabs" ).tabs( { heightStyle: "content" }  );
+	$( "#ttr-tabs" ).tabs( { heightStyle: "content" } );
+	$( "#cmaq-tabs" ).tabs( { heightStyle: "content" } );
 	
 	
 	Promise.all([
