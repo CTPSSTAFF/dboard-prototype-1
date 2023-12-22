@@ -287,6 +287,55 @@ function roadway_fatality_rate_viz() {
 											return o.perf_meas == 'Fatality rate per 100 million vehicle-miles traveled'; });
 	
 	var xValues = ['2023' , '2022', '2021', '2020', '2019'];	
+	
+	var yValues_targ = [ road_fat_rate.targ_2023, road_fat_rate.targ_2022, road_fat_rate.targ_2021,
+	                     road_fat_rate.targ_2020, road_fat_rate.targ_2019 ];
+	var yValues_perf = [ 0, road_fat_rate.perf_2022, road_fat_rate.perf_2021,
+	                     road_fat_rate.perf_2020, road_fat_rate.perf_2019 ];
+
+	var trace_targ = { 
+	  x: xValues,
+	  y: yValues_targ,
+	  type: 'bar',
+	  name: 'Target',
+	  text: yValues_targ.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  opacity: 0.5,
+	  marker: {
+		color: 'rgb(158,202,225)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+
+	var trace_perf = {
+	  x: xValues,
+	  y: yValues_perf,
+	  type: 'bar',
+	  name: 'Performance',
+	  text: yValues_perf.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  marker: {
+		color: 'rgba(58,200,225,.5)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+	
+	var data = [trace_perf,trace_targ];
+
+	var layout = {
+		xaxis: { type: 'category' },
+		title: 'Roadway Fatality Rate per 100 million vehicle-miles traveled'
+	};
+
+	Plotly.newPlot('roadway-fatality-rate-viz', data, layout);	
 }
 
 function roadway_injury_viz() {
