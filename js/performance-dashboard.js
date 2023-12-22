@@ -207,12 +207,12 @@ var cmaq_RowConverter = function(d) {
 		perf_meas:		d['Performance Measure'],
 		geo_area:		d['Geographic Area'],
 		baseline:		+d['Baseline'],
-		targ_2023:		+d['Two-Year Target (2023)'],
-		targ_2025:		+d['Four-Year Target (2025)'],
 		targ_2019:		+d['Two-Year Target (2019)'],
 		perf_2019:		+d['Two-Year Performance (2019)'],
 		targ_2021:		+d['Four-Year Target (2021)'],
-		perf_2021:		+d['Four-Year Performance (2021)']
+		perf_2021:		+d['Four-Year Performance (2021)'],
+		targ_2023:		+d['Two-Year Target (2023)'],
+		targ_2025:		+d['Four-Year Target (2025)'],
 	}
 };
 
