@@ -1,8 +1,8 @@
+// The following funciton is OLD CODE and is to be removed.
 function initialize_roadway_safety() {
 		/////////////////////////////////////////////////
 	// Generate viz of number of (motorized) fatalities
 	
-/*
 	var xValue = ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'];
 	var yValue = [120, 131, 102, 120, 117, 140,  99, 99, 106];
 
@@ -117,7 +117,6 @@ function initialize_roadway_safety() {
 	  barmode: 'stack'
 	};
 	Plotly.newPlot('nonmotorized-injuries-viz', nonmotInjuriesData, layout);
-*/	
 } // initialize_roadway_safety
 
 // URLs for CSV files to be loaded
@@ -226,16 +225,7 @@ var rs_data = []
 	ttr_data = [],
 	cmaq_data = [];
 
-function roadway_fatality_viz() {
-	var road_fat = _.find(rs_data, function(o) { return o.perf_meas == 'Number of fatalities'; });
-	
-	var xValues = ['2023' , '2022', '2021', '2020', '2019'];
-	              
-	var yValues_targ = [ road_fat.targ_2023, road_fat.targ_2022, road_fat.targ_2021,
-	                     road_fat.targ_2020, road_fat.targ_2019 ];
-	var yValues_perf = [ 0, road_fat.perf_2022, road_fat.perf_2021,
-	                     road_fat.perf_2020, road_fat.perf_2019 ];
-
+function roadway_fatality_viz(xValues, yValues_targ, yValues_perf) {
 	var trace_targ = {
 	  x: xValues,
 	  y: yValues_targ,
@@ -281,17 +271,7 @@ function roadway_fatality_viz() {
 	Plotly.newPlot('roadway-fatalities-viz', data, layout);		
 } // roadway_fatality_viz
 
-function roadway_fatality_rate_viz() {
-	var road_fat_rate = _.find(rs_data, function(o) { 
-											return o.perf_meas == 'Fatality rate per 100 million vehicle-miles traveled'; });
-	
-	var xValues = ['2023' , '2022', '2021', '2020', '2019'];	
-	
-	var yValues_targ = [ road_fat_rate.targ_2023, road_fat_rate.targ_2022, road_fat_rate.targ_2021,
-	                     road_fat_rate.targ_2020, road_fat_rate.targ_2019 ];
-	var yValues_perf = [ 0, road_fat_rate.perf_2022, road_fat_rate.perf_2021,
-	                     road_fat_rate.perf_2020, road_fat_rate.perf_2019 ];
-
+function roadway_fatality_rate_viz(xValues, yValues_targ, yValues_perf) {
 	var trace_targ = { 
 	  x: xValues,
 	  y: yValues_targ,
@@ -337,16 +317,7 @@ function roadway_fatality_rate_viz() {
 	Plotly.newPlot('roadway-fatality-rate-viz', data, layout);	
 }
 
-function roadway_injury_viz() {
-	var road_inj = _.find(rs_data, function(o) {  return o.perf_meas == 'Number of serious injuries'; });
-	
-	var xValues = ['2023' , '2022', '2021', '2020', '2019'];	
-	
-	var yValues_targ = [ road_inj.targ_2023, road_inj.targ_2022, road_inj.targ_2021,
-	                     road_inj.targ_2020, road_inj.targ_2019 ];
-	var yValues_perf = [ 0, road_inj.perf_2022, road_inj.perf_2021,
-	                     road_inj.perf_2020, road_inj.perf_2019 ];
-
+function roadway_injury_viz(xValues, yValues_targ, yValues_perf) {
 	var trace_targ = { 
 	  x: xValues,
 	  y: yValues_targ,
@@ -390,18 +361,9 @@ function roadway_injury_viz() {
 	};
 
 	Plotly.newPlot('roadway-injuries-viz', data, layout);	
-}
+} // oadway_injury_viz
 
-function roadway_injury_rate_viz() {
-	var road_inj_rate = _.find(rs_data, function(o) {  return o.perf_meas == 'Serious injury rate per 100 million vehicle-miles traveled'; });
-	
-	var xValues = ['2023' , '2022', '2021', '2020', '2019'];
-	
-	var yValues_targ = [ road_inj_rate.targ_2023, road_inj_rate.targ_2022, road_inj_rate.targ_2021,
-	                     road_inj_rate.targ_2020, road_inj_rate.targ_2019 ];
-	var yValues_perf = [ 0, road_inj_rate.perf_2022, road_inj_rate.perf_2021,
-	                     road_inj_rate.perf_2020, road_inj_rate.perf_2019 ];
-
+function roadway_injury_rate_viz(xValues, yValues_targ, yValues_perf) {
 	var trace_targ = { 
 	  x: xValues,
 	  y: yValues_targ,
@@ -447,16 +409,7 @@ function roadway_injury_rate_viz() {
 	Plotly.newPlot('roadway-injury-rate-viz', data, layout);	
 } // roadway_injury_rate_viz
 
-function roadway_nonmotorized_viz() {
-	var non_mot = _.find(rs_data, function(o) {  return o.perf_meas == 'Number of non-motorized fatalities and non-motorized serious injuries'; });
-	
-	var xValues = ['2023' , '2022', '2021', '2020', '2019'];
-
-	var yValues_targ = [ non_mot.targ_2023, non_mot.targ_2022, non_mot.targ_2021,
-	                     non_mot.targ_2020, non_mot.targ_2019 ];
-	var yValues_perf = [ 0, non_mot.perf_2022, non_mot.perf_2021,
-	                     non_mot.perf_2020, non_mot.perf_2019 ];
-
+function roadway_nonmotorized_viz(xValues, yValues_targ, yValues_perf) {
 	var trace_targ = { 
 	  x: xValues,
 	  y: yValues_targ,
@@ -503,11 +456,51 @@ function roadway_nonmotorized_viz() {
 } // roadway_non_motorized_viz
 	
 function roadway_safety_viz() {
-	roadway_fatality_viz();
-	roadway_fatality_rate_viz();
-	roadway_injury_viz();
-	roadway_injury_rate_viz();
-	roadway_nonmotorized_viz();
+	var xValues = ['2023' , '2022', '2021', '2020', '2019'];
+	
+	var yValues_targ = [], yValues_perf = [];
+	
+	// 2 sets of Y values for roadway fatalities
+	
+	var road_fat = _.find(rs_data, function(o) { return o.perf_meas == 'Number of fatalities'; });         
+	yValues_targ = [ road_fat.targ_2023, road_fat.targ_2022, road_fat.targ_2021,
+	                 road_fat.targ_2020, road_fat.targ_2019 ];
+	yValues_perf = [ 0, road_fat.perf_2022, road_fat.perf_2021,
+	                 road_fat.perf_2020, road_fat.perf_2019 ];
+	roadway_fatality_viz(xValues, yValues_targ, yValues_perf);
+	
+	// 2 sets of Y values for roadway fatality Rate
+	var road_fat_rate = _.find(rs_data, function(o) { 
+											return o.perf_meas == 'Fatality rate per 100 million vehicle-miles traveled'; });
+	yValues_targ = [ road_fat_rate.targ_2023, road_fat_rate.targ_2022, road_fat_rate.targ_2021,
+	                 road_fat_rate.targ_2020, road_fat_rate.targ_2019 ];
+	yValues_perf = [ 0, road_fat_rate.perf_2022, road_fat_rate.perf_2021,
+	                 road_fat_rate.perf_2020, road_fat_rate.perf_2019 ];
+	roadway_fatality_rate_viz(xValues, yValues_targ, yValues_perf);
+	
+	// 2 sets of Y values for roadway injuries
+	var road_inj = _.find(rs_data, function(o) {  return o.perf_meas == 'Number of serious injuries'; });
+	yValues_targ = [ road_inj.targ_2023, road_inj.targ_2022, road_inj.targ_2021,
+	                 road_inj.targ_2020, road_inj.targ_2019 ];
+	yValues_perf = [ 0, road_inj.perf_2022, road_inj.perf_2021,
+	                road_inj.perf_2020, road_inj.perf_2019 ];
+	roadway_injury_viz(xValues, yValues_targ, yValues_perf);
+	
+	// 2 sets of Y values for roadway injury rate
+	var road_inj_rate = _.find(rs_data, function(o) {  return o.perf_meas == 'Serious injury rate per 100 million vehicle-miles traveled'; });
+	yValues_targ = [ road_inj_rate.targ_2023, road_inj_rate.targ_2022, road_inj_rate.targ_2021,
+	                 road_inj_rate.targ_2020, road_inj_rate.targ_2019 ];
+	yValues_perf = [ 0, road_inj_rate.perf_2022, road_inj_rate.perf_2021,
+	                 road_inj_rate.perf_2020, road_inj_rate.perf_2019 ];
+	roadway_injury_rate_viz(xValues, yValues_targ, yValues_perf);
+	
+	// 2 sets of Y values for nonmotorized fatalities+injuries
+	var non_mot = _.find(rs_data, function(o) {  return o.perf_meas == 'Number of non-motorized fatalities and non-motorized serious injuries'; });
+	yValues_targ = [ non_mot.targ_2023, non_mot.targ_2022, non_mot.targ_2021,
+	                 non_mot.targ_2020, non_mot.targ_2019 ];
+	yValues_perf = [ 0, non_mot.perf_2022, non_mot.perf_2021,
+	                 non_mot.perf_2020, non_mot.perf_2019 ];
+	roadway_nonmotorized_viz(xValues, yValues_targ, yValues_perf);
 } // roadway_safey_viz	
 
 
@@ -545,13 +538,4 @@ function initialize() {
 		var _DEBUG_HOOK = 0;
 		alert('Error loading CSV file(s). Exiting.');
 	});
-	
-
-
-	
-	// Once the code for the viz-generation is aligned with the data,
-	// the following statement should be moved _inside_ the above 'then' function
-	initialize_roadway_safety();
-	
-	return;
 }
