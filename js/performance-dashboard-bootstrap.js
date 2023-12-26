@@ -1,3 +1,9 @@
+// C'est une petit hacque temporaire, Pierre
+var ts_data = [],
+	tam_data = [],
+	ttr_data = [],
+	cmaq_data = [];
+
 // URLs for CSV files to be loaded
 var roadwaySafetyURL 	= 'csv/roadway_safety.csv',
 	transitSafetyURL 	= 'csv/transit_safety.csv',
@@ -95,14 +101,6 @@ var cmaq_RowConverter = function(d) {
 	}
 };
 
-
-// C'est une petit hacque temporaire, Pierre
-var rs_data = []
-    ts_data = [],
-	bp_data = [],
-	tam_data = [],
-	ttr_data = [],
-	cmaq_data = [];
 
 function roadway_fatality_viz(xValues, yValues_targ, yValues_perf) {
 	var trace_targ = {
