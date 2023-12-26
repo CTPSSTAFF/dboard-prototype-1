@@ -383,6 +383,31 @@ function roadway_safety_viz() {
 } // roadway_safey_viz	
 
 
+function transit_safety_viz() {
+	
+} // transit_safety_viz
+
+
+function tam_viz() {
+	
+	
+} // tam_viz
+
+
+function bridge_pavement_viz() {
+	
+
+} // bridge_pavement_viz
+
+
+function ttr_viz() {
+	
+	
+} // ttr_viz
+
+function cmaq_viz() {
+	
+} // cmaq_viz
 
 function initialize() {
 	Promise.all([
@@ -400,6 +425,11 @@ function initialize() {
 		ttr_data = files[4];
 		cmaq_data = files[5];
 		roadway_safety_viz();
+		transit_safety_viz();
+		tam_viz();
+		bridge_pavement_viz();
+		ttr_viz();
+		cmaq_viz();
 		var _DEBUG_HOOK = 0;
 	}).catch(function(err) {
 		var _DEBUG_HOOK = 0;
