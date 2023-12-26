@@ -1,9 +1,3 @@
-// C'est une petit hacque temporaire, Pierre
-var ts_data = [],
-	tam_data = [],
-	ttr_data = [],
-	cmaq_data = [];
-
 // URLs for CSV files to be loaded
 var roadwaySafetyURL 	= 'csv/roadway_safety.csv',
 	transitSafetyURL 	= 'csv/transit_safety.csv',
@@ -380,12 +374,12 @@ function roadway_safety_viz(rs_data) {
 } // roadway_safey_viz	
 
 
-function transit_safety_viz() {
+function transit_safety_viz(ts_data) {
 	
 } // transit_safety_viz
 
 
-function tam_viz() {
+function tam_viz(tam_data) {
 	
 	
 } // tam_viz
@@ -569,12 +563,12 @@ function bridge_pavement_viz(bp_data) {
 } // bridge_pavement_viz
 
 
-function ttr_viz() {
+function ttr_viz(ttr_data) {
 	
 	
 } // ttr_viz
 
-function cmaq_viz() {
+function cmaq_viz(cmaq_data) {
 	
 } // cmaq_viz
 
@@ -582,23 +576,24 @@ function initialize() {
 	Promise.all([
 		d3.csv(roadwaySafetyURL, rs_RowConverter),
 		d3.csv(transitSafetyURL, ts_RowConverter),
-		d3.csv(bridgeAndPavementURL, b_and_p_RowConverter),
 		d3.csv(tamURL, tam_RowConverter),
+		d3.csv(bridgeAndPavementURL, b_and_p_RowConverter),
 		d3.csv(ttrURL, ttr_RowConverter),
 		d3.csv(cmaqURL, cmaq_RowConverter)
+		
 	]).then(function(files) {
 		rs_data = files[0];
 		ts_data = files[1];
-		bp_data = files[2];
-		tam_data = files[3];
+		tam_data = files[2];
+		bp_data = files[3];
 		ttr_data = files[4];
 		cmaq_data = files[5];
 		roadway_safety_viz(rs_data);
-		transit_safety_viz();
-		tam_viz();
+		transit_safety_viz(ts_data);
+		tam_viz(tam_data);
 		bridge_pavement_viz(bp_data);
-		ttr_viz();
-		cmaq_viz();
+		ttr_viz(ttr_data);
+		cmaq_viz(cmaq_data);
 		var _DEBUG_HOOK = 0;
 	}).catch(function(err) {
 		var _DEBUG_HOOK = 0;
