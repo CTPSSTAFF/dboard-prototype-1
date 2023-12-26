@@ -441,11 +441,50 @@ function interstate_pavement_poor_viz(xValues, yValues) {
 }
 
 function noninterstate_pavement_good_viz(xValues, yValues) {
-	
+	var data = [
+	  {
+		x: xValues,
+		y: yValues,
+		type: 'bar',
+		name: 'Target',
+	    text: yValues.map(String),
+	    textposition: 'auto',
+	    hoverinfo: 'none',
+	    opacity: 0.75,
+	  }
+	];
+
+	var layout = {
+		xaxis: { type: 'category' },
+		title: 'Percent of pavements on the non-Interstate NHS in Good Condition'
+	};
+
+	Plotly.newPlot('non-interstate-pavement-good-viz', data, layout);	
 }
 
 function noninterstate_pavement_poor_viz(xValues, yValues) {
-	
+	var data = [
+	  {
+		x: xValues,
+		y: yValues,
+		type: 'bar',
+		name: 'Target',
+	    text: yValues.map(String),
+	    textposition: 'auto',
+		marker: {
+			color: 'orange'
+		},
+	    hoverinfo: 'none',
+	    opacity: 0.75,
+	  }
+	];
+
+	var layout = {
+		xaxis: { type: 'category' },
+		title: 'Percent of pavements on the non-Interstate NHS in Poor Condition'
+	};
+
+	Plotly.newPlot('non-interstate-pavement-poor-viz', data, layout);	
 
 }
 
