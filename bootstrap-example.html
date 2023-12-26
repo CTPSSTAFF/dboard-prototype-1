@@ -138,7 +138,41 @@
 			  
 			  <div id="roadway-safety" class="tab-pane fade">
 				<h3>Roadway Safety</h3>
-				<p>Some content A.</p>
+				<p>On February 3, 2023, the MPO board voted to adopt the Commonwealth of Massachusetts’ calendar year (CY) 2023 targets for a set of 
+				   federally required roadway safety performance measures. 
+				   The Commonwealth and MPOs are required to establish one-year targets for these measures on an annual basis, 
+				   which pertain to fatalities and serious injuries occurring on roadways. By adopting these targets, the MPO agrees to plan and program 
+				   projects that help the Commonwealth achieve its roadway safety targets. For more information about these measures, CY 2023 targets, 
+				   and related processes, please refer to the memorandum titled Roadway Safety Targets, Calendar Year 2023 (PDF) Roadway Safety Targets, 
+				   Calendar Year 2023 (HTML).
+				</p>
+				
+				<h4>Number of Fatalities</h4>
+				<p>Some text about roadway fatality targets and actual performance.
+				</p>
+				<div id='roadway-fatalities-viz'></div>
+				
+				<h4>Fatality Rate (per 100M VMT)</h4>
+				<p>Some text about roadway fatality rate targets and actual performance.
+				</p>
+				<div id='roadway-fatality-rate-viz'></div>
+				
+				<h4>Number of Serious Injuries</h4>
+				<p>Text about roadway injury targets and actual performance.
+				</p>
+				<div id='roadway-injuries-viz'></div>
+				
+				<h4>Serious Injury Rate (per 100M VMT)</h4>
+				<p>Text about roadway injury rate targest and actual performance.</p>
+				<div id='roadway-injury-rate-viz'></div>
+				
+				<h4>Number of Nonmotorized Fatalities and Serious Injuries</h4>
+				<p>Text about non-motorized roadway fatalities and serious injuries.
+				</p>
+				<p>TBD: We really want to present the data for nonmotorized fatalities and injuries separately.
+				</p>
+				<div id='roadway-nonmotorized-viz'></div>
+				
 			  </div>
 			  
 			  <div id="transit-safety" class="tab-pane fade">
@@ -169,5 +203,11 @@
 			</div>
 			
 		</div> <!-- .container -->
+		
+		<script src="js/performance-dashboard-bootstrap.js"></script>  
+        <script> 
+            $(document).ready(function() { initialize(); });
+        </script>
+		
 	</body>
 </html>
