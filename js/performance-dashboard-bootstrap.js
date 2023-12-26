@@ -334,7 +334,7 @@ function roadway_nonmotorized_viz(xValues, yValues_targ, yValues_perf) {
 	Plotly.newPlot('roadway-nonmotorized-viz', data, layout);
 } // roadway_non_motorized_viz
 	
-function roadway_safety_viz() {
+function roadway_safety_viz(rs_data) {
 	var xValues = ['2023' , '2022', '2021', '2020', '2019'];
 	
 	var yValues_targ = [], yValues_perf = [];
@@ -535,7 +535,7 @@ function noninterstate_pavement_poor_viz(xValues, yValues) {
 
 }
 
-function bridge_pavement_viz() {
+function bridge_pavement_viz(bp_data) {
 	var xValues = [ 'Baseline' , 'Two-year Target (CY 2023)', 'Five-year Target (CY 2025)' ];
 	var yValues = [];
 	
@@ -595,10 +595,10 @@ function initialize() {
 		tam_data = files[3];
 		ttr_data = files[4];
 		cmaq_data = files[5];
-		roadway_safety_viz();
+		roadway_safety_viz(rs_data);
 		transit_safety_viz();
 		tam_viz();
-		bridge_pavement_viz();
+		bridge_pavement_viz(bp_data);
 		ttr_viz();
 		cmaq_viz();
 		var _DEBUG_HOOK = 0;
