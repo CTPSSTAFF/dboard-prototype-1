@@ -1,0 +1,95 @@
+// CSV parser for TTR (travel time reliability) CSV file
+var ttr_RowConverter = function(d) {
+	return {
+		perf_meas:		d['Performance Measure'],
+		targ_2025:		+d['Four-Year Target (2025)'],
+		targ_2023:		+d['Two-Year Target (2023)'],
+		targ_2021:		+d['2021 Target'],
+		perf_2021:		+d['2021 Performance'],
+		targ_2019:		+d['2019 Target'],
+		perf_2019:		+d['2019 Performance']
+	}
+};
+
+
+function interstate_ttr_viz(xValues, yValues_targ, yValues_perf_state, yValues_perf_mpo) {
+	var trace_targ = { 
+	  x: xValues,
+	  y: yValues_targ,
+	  type: 'bar',
+	  name: 'Target',
+	  text: yValues_targ.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  opacity: 0.5,
+	  marker: {
+		color: 'rgb(158,202,225)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+	
+	var trace_perf_state = {
+	  x: xValues,
+	  y: yValues_perf_state,
+	  type: 'bar',
+	  name: 'Performance - statewide',
+	  text: yValues_perf_state.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  marker: {
+		color: 'rgba(58,200,225,.5)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+	
+	var trace_perf_mpo = {
+	  x: xValues,
+	  y: yValues_perf_mpo,
+	  type: 'bar',
+	  name: 'Performance - Boston Region MPO',
+	  text: yValues_perf_mpo.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  marker: {
+		color: 'rgba(255,144,17,.5)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};
+	
+	
+	var data = [trace_targ, trace_perf_state, trace_perf_mpo];
+
+	var layout = {
+		xaxis: { type: 'category' },
+		title: 'Percent of the person-miles traveled on the Interstate System that are reliable'
+	};
+
+	Plotly.newPlot('ttr-interstate-viz', data, layout);
+	
+}
+
+function ttr_viz(ttr_data) {
+	var xValues = [ '2025' , '2023', '2021', '2019' ];
+	var yValues_targ = [], yValues_perf_state, yValues_perf_mpo = [];
+	
+	// 3 sets of Y values for TTR: target, performance statewide, performance in the MPO area.
+	// Note that the 'statewide' record has targets for 2025, 2023, 2021 and 2019, and performance data for 2021 and 2019;
+	// the 'MPO' record only has performance data for 2021 and 2019.
+	var interstate_ttr_state = _.find(ttr_data, function(o) { return o.perf_meas == 'Percent of the person-miles traveled on the Interstate System that are reliable - Statewide'; });
+	var interstate_ttr_mpo = _.find(ttr_data, function(o) { return o.perf_meas == 'Percent of the person-miles traveled on the Interstate System that are reliable - Boston Region'; });
+	
+	yValues_targ = [ interstate_ttr_state.targ_2025, interstate_ttr_state.targ_2023, interstate_ttr_state.targ_2021, interstate_ttr_state.targ_2019 ];
+	yValues_perf_state = [ 0, 0, interstate_ttr_state.perf_2021, interstate_ttr_state.perf_2019 ];
+	yValues_perf_mpo = [ 0, 0, interstate_ttr_mpo.perf_2021, interstate_ttr_mpo.perf_2019 ];
+	interstate_ttr_viz(xValues, yValues_targ, yValues_perf_state, yValues_perf_mpo);
+	
+} // ttr_viz
