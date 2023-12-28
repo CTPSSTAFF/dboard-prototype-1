@@ -8,7 +8,7 @@
 //	6. performance-dashboard-cmaq.js
 
 
-/ URLs for CSV files to be loaded
+// URLs for CSV files to be loaded
 var roadwaySafetyURL 	= 'csv/roadway_safety.csv',
 	transitSafetyURL 	= 'csv/transit_safety.csv',
 	bridgeAndPavementURL = 'csv/bridge_and_pavement.csv',
