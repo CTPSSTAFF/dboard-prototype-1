@@ -141,6 +141,70 @@ function non_interstate_ttr_viz(xValues, yValues_targ, yValues_perf_state, yValu
 	Plotly.newPlot('ttr-noninterstate-viz', data, layout);
 } // non_interstate_ttr_viz
 
+function truck_ttr_viz(xValues, yValues_targ, yValues_perf_state, yValues_perf_mpo) {
+var trace_targ = { 
+	  x: xValues,
+	  y: yValues_targ,
+	  type: 'bar',
+	  name: 'Target',
+	  text: yValues_targ.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  opacity: 0.5,
+	  marker: {
+		color: 'rgb(158,202,225)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+	
+	var trace_perf_state = {
+	  x: xValues,
+	  y: yValues_perf_state,
+	  type: 'bar',
+	  name: 'Performance - statewide',
+	  text: yValues_perf_state.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  marker: {
+		color: 'rgba(58,200,225,.5)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+	
+	var trace_perf_mpo = {
+	  x: xValues,
+	  y: yValues_perf_mpo,
+	  type: 'bar',
+	  name: 'Performance - Boston Region MPO',
+	  text: yValues_perf_mpo.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  marker: {
+		color: 'rgba(255,144,17,.5)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};
+	
+	
+	var data = [trace_targ, trace_perf_state, trace_perf_mpo];
+
+	var layout = {
+		xaxis: { type: 'category' },
+		title: 'Truck Travel-time Reliability Index (Interstates only)'
+	};
+
+	Plotly.newPlot('ttr-truck-viz', data, layout);
+} // truck_ttr_viz
+
 function ttr_viz(ttr_data) {
 	var xValues = [ '2025' , '2023', '2021', '2019' ];
 	var yValues_targ = [], yValues_perf_state, yValues_perf_mpo = [];
@@ -168,5 +232,10 @@ function ttr_viz(ttr_data) {
 	non_interstate_ttr_viz(xValues, yValues_targ, yValues_perf_state, yValues_perf_mpo);
 	
 	// Truck TTR
-	
+	var truck_ttr_state = _.find(ttr_data, function(o) { return o.perf_meas == 'Truck Travel Time Reliability Index (for truck travel on Interstate highways) - Statewide'; });
+	var truck_ttr_mpo = _.find(ttr_data, function(o) { return o.perf_meas == 'Truck Travel Time Reliability Index (for truck travel on Interstate highways) - Boston Region'; });
+	yValues_targ = [ truck_ttr_state.targ_2025, truck_ttr_state.targ_2023, truck_ttr_state.targ_2021, truck_ttr_state.targ_2019 ];
+	yValues_perf_state = [ 0, 0, truck_ttr_state.perf_2021, truck_ttr_state.perf_2019 ];
+	yValues_perf_mpo = [ 0, 0, truck_ttr_mpo.perf_2021, truck_ttr_mpo.perf_2019 ];
+	truck_ttr_viz(xValues, yValues_targ, yValues_perf_state, yValues_perf_mpo);
 } // ttr_viz
