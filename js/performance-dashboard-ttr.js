@@ -1,13 +1,28 @@
-// CSV parser for TTR (travel time reliability) CSV file
-var ttr_RowConverter = function(d) {
+// CSV parser for TTR (travel time reliability) 'statewide' CSV file
+var ttr_state_RowConverter = function(d) {
 	return {
 		perf_meas:		d['Performance Measure'],
 		targ_2025:		+d['Four-Year Target (2025)'],
 		targ_2023:		+d['Two-Year Target (2023)'],
 		targ_2021:		+d['2021 Target'],
-		perf_2021:		+d['2021 Performance'],
 		targ_2019:		+d['2019 Target'],
-		perf_2019:		+d['2019 Performance']
+		perf_2021:		+d['2021 Performance'],
+		perf_2020:		+d['2020 Performance'],
+		perf_2019:		+d['2019 Performance'],
+		perf_2018:		+d['2018 Performance'],
+		perf_2017:		+d['2017 Performance'],
+	}
+};
+
+// CSV parser for TTR (travel time reliability) 'mpo' CSV file
+var ttr_mpo_RowConverter = function(d) {
+	return {
+		perf_meas:		d['Performance Measure'],
+		perf_2021:		+d['2021 Performance'],
+		perf_2020:		+d['2020 Performance'],
+		perf_2019:		+d['2019 Performance'],
+		perf_2018:		+d['2018 Performance'],
+		perf_2017:		+d['2017 Performance'],
 	}
 };
 
@@ -205,7 +220,15 @@ var trace_targ = {
 	Plotly.newPlot('ttr-truck-viz', data, layout);
 } // truck_ttr_viz
 
-function ttr_viz(ttr_data) {
+function ttr_viz(ttr_state_data, ttr_mpo_data) {
+	
+	console.log('Entered ttr_viz');
+	return; // for now
+	
+	// Generate a line chart for the TTR data
+	
+	
+	
 	var xValues = [ '2025' , '2023', '2021', '2019' ];
 	var yValues_targ = [], yValues_perf_state, yValues_perf_mpo = [];
 	

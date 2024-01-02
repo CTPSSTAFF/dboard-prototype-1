@@ -1,26 +1,41 @@
-// URLs for CSV files to be loaded
-var roadwaySafetyURL 	= 'csv/roadway_safety.csv',
-	transitSafetyURL 	= 'csv/transit_safety.csv',
-	bridgeAndPavementURL = 'csv/bridge_and_pavement.csv',
-	tamURL				= 'csv/tam.csv',
-	ttrURL				= 'csv/ttr.csv',
-	cmaqURL				= 'csv/cmaq.csv';
-
-// CSV parser for roadway safety CSV file
-var rs_RowConverter = function(d) {
+// CSV parser for roadway safety 'statewide' CSV file
+var rs_state_RowConverter = function(d) {
 	return {
 		perf_meas:		d['Performance Measure'],
 		targ_2023:		+d['2023 Targets'],
 		targ_2022:		+d['2022 Targets'],
-		perf_2022:		+d['2022 Performance'],
 		targ_2021:		+d['2021 Targets'],
-		perf_2021:		+d['2021 Performance'],
 		targ_2020:		+d['2020 Targets'],
+		perf_2022:		+d['2022 Performance'],	
+		perf_2021:		+d['2021 Performance'],
 		perf_2020:		+d['2020 Performance'],
-		targ_2019:		+d['2019 Targets'],
-		perf_2019:		+d['2019 Performance']
+		perf_2019:		+d['2019 Performance'],
+		perf_2018:		+d['2018 Performance'],
+		perf_2017:		+d['2017 Performance'],
+		perf_2016:		+d['2016 Performance'],
+		perf_2015:		+d['2015 Performance'],
+		perf_2014:		+d['2014 Performance'],
+		perf_2013:		+d['2013 Performance'],
 	};
 };
+
+// CSV parser for roadway safety 'mpo' CSV file
+var rs_mpo_RowConverter = function(d) {
+	return {
+		perf_meas:		d['Performance Measure'],
+		perf_2022:		+d['2022 Performance'],	
+		perf_2021:		+d['2021 Performance'],
+		perf_2020:		+d['2020 Performance'],
+		perf_2019:		+d['2019 Performance'],
+		perf_2018:		+d['2018 Performance'],
+		perf_2017:		+d['2017 Performance'],
+		perf_2016:		+d['2016 Performance'],
+		perf_2015:		+d['2015 Performance'],
+		perf_2014:		+d['2014 Performance'],
+		perf_2013:		+d['2013 Performance'],
+	};
+};
+
 
 function roadway_fatality_viz(xValues, yValues_targ, yValues_perf) {
 	var trace_targ = {
@@ -252,7 +267,13 @@ function roadway_nonmotorized_viz(xValues, yValues_targ, yValues_perf) {
 	Plotly.newPlot('roadway-nonmotorized-viz', data, layout);
 } // roadway_non_motorized_viz
 	
-function roadway_safety_viz(rs_data) {
+function roadway_safety_viz(rs_state_data, rs_mpo_data) {
+	
+	console.log('Entered roadway_safety_viz');
+	return; // for now
+	
+	// Generate a bar chart for the roadway safety data
+	
 	var xValues = ['2023' , '2022', '2021', '2020', '2019'];
 	
 	var yValues_targ = [], yValues_perf = [];

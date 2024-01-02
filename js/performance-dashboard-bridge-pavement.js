@@ -1,10 +1,18 @@
-// CSV parser for bridge and pavement CSV file
-var b_and_p_RowConverter = function(d) {
+// CSV parser for bridge and pavement 'state' CSV file
+var b_and_p_state_RowConverter = function(d) {
 	return {
 		perf_meas:	 	d['Performance Measure'],
 		baseline:		+d['Baseline'],
 		two_yr_targ:	+d['Two-Year Target (CY 2023)'],
 		four_yr_targ:	+d['Four-Year Target (CY 2025)']
+	}
+};
+
+var b_and_p_mpo_RowConverter = function(d) {
+	return {
+		perf_meas:	 	d['Performance Measure'],
+		cond_2021:		+d['2021 Conditions'],
+		two_yr_targ:	+d['Two-Year Target']
 	}
 };
 
@@ -149,7 +157,15 @@ function noninterstate_pavement_poor_viz(xValues, yValues) {
 	Plotly.newPlot('non-interstate-pavement-poor-viz', data, layout);	
 }
 
-function bridge_pavement_viz(bp_data) {
+function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
+	
+	console.log('Entered bridge_pavement_viz');
+	return;	// for now
+	
+	// Generate line charts for the bridge and pavement data
+	
+	
+	
 	var xValues = [ 'Baseline' , 'Two-year Target (CY 2023)', 'Five-year Target (CY 2025)' ];
 	var yValues = [];
 	

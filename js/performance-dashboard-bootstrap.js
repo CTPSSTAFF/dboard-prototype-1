@@ -9,39 +9,49 @@
 
 
 // URLs for CSV files to be loaded
-var roadwaySafetyURL 	= 'csv/roadway_safety.csv',
-	transitSafetyURL 	= 'csv/transit_safety.csv',
-	bridgeAndPavementURL = 'csv/bridge_and_pavement.csv',
-	tamURL				= 'csv/tam.csv',
-	ttrURL				= 'csv/ttr.csv',
-	cmaqURL				= 'csv/cmaq.csv';
+var roadwaySafety_state_URL 	= 'csv/PBPP_Dashboard_Roadway_Safety_State_Totals.csv',
+    roadwaySafety_mpo_URL 		= 'csv/PBPP_Dashboard_Roadway_Safety_Boston_Region.csv',
+	transitSafety_mpo_URL 		= 'csv/PBPP_Dashboard_Transit_Safety_Boston_Region.csv',
+	bridgeAndPavement_state_URL = 'csv/PBPP_Dashboard_Bridge_and_Pavement_State_Totals.csv',
+	bridgeAndPavement_mpo_URL 	= 'csv/PBPP_Dashboard_Bridge_and_Pavement_Boston_Region.csv',
+	tam_mpo_URL					= 'csv/PBPP_Dashboard_TAM_Boston_Region.csv',
+	ttr_state_URL				= 'csv/PBPP_Dashboard_TTR_State_Totals.csv',
+	ttr_mpo_URL					= 'csv/PBPP_Dashboard_TTR_Boston_Region.csv',
+	cmaq_mpo_URL				= 'csv/PBPP_Dashboard_CMAQ_Boston_Region.csv';
 
 
 function initialize() {
 	Promise.all([
-		d3.csv(roadwaySafetyURL, rs_RowConverter),
-		d3.csv(transitSafetyURL, ts_RowConverter),
-		d3.csv(tamURL, tam_RowConverter),
-		d3.csv(bridgeAndPavementURL, b_and_p_RowConverter),
-		d3.csv(ttrURL, ttr_RowConverter),
-		d3.csv(cmaqURL, cmaq_RowConverter)
-		
+		d3.csv(roadwaySafety_state_URL , rs_state_RowConverter),
+		d3.csv(roadwaySafety_state_URL , rs_mpo_RowConverter),
+		d3.csv(transitSafety_mpo_URL, ts_mpo_RowConverter),
+		d3.csv(tam_mpo_URL, tam_mpo_RowConverter),
+		d3.csv(bridgeAndPavement_state_URL, b_and_p_state_RowConverter),
+		d3.csv(bridgeAndPavement_mpo_URL, b_and_p_mpo_RowConverter),
+		d3.csv(ttr_state_URL, ttr_state_RowConverter),
+		d3.csv(ttr_mpo_URL, ttr_mpo_RowConverter),
+		d3.csv(cmaqURL, cmaq_mpo_RowConverter)
 	]).then(function(files) {
-		rs_data = files[0];
-		ts_data = files[1];
-		tam_data = files[2];
-		bp_data = files[3];
-		ttr_data = files[4];
-		cmaq_data = files[5];
-		roadway_safety_viz(rs_data);
-		transit_safety_viz(ts_data);
-		tam_viz(tam_data);
-		bridge_pavement_viz(bp_data);
-		ttr_viz(ttr_data);
-		cmaq_viz(cmaq_data);
+		rs_state_data 	= files[0];
+		rs_mpo_data 	= files[1];
+		ts_mpo_data 	= files[2];
+		tam_mpo_data 	= files[3];
+		bp_state_data 	= files[4];
+		bp_mpo_data 	= files[5];
+		ttr_state_data	= files[6];
+		ttr_mpo_data	= files[7];
+		cmaq_mpo_data 	= files[8];
+		//
 		var _DEBUG_HOOK = 0;
+		roadway_safety_viz(rs_state_data, rs_mpo_data);
+		transit_safety_viz(ts_mpo_data);
+		tam_viz(tam_mpo_data);
+		bridge_pavement_viz(bp_state_data, bp_mpo_data);
+		ttr_viz(ttr_state_data, ttr_mpo_data);
+		cmaq_viz(cmaq_mpo_data);
+		_DEBUG_HOOK = 1;
 	}).catch(function(err) {
 		var _DEBUG_HOOK = 0;
-		alert('Error loading CSV file(s). Exiting.');
+		alert('Error during initialization. Exiting.');
 	});
 }
