@@ -202,25 +202,21 @@ function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
 	
 	yValues_state = [ bridge_good_state.baseline, null, null, bridge_good_state.targ_2023, null, bridge_good_state.targ_2025 ];
 	yValues_mpo   = [ null, bridge_good_mpo.cond_2021, null, null, null, null ];
-	
 	generate_bp_viz(xValues, yValues_state, yValues_mpo, div_id, caption);
-	
-	return;	// for now	
-	
-	
 	
 	
 	// NHS bridges in POOR condition
-	var bridge_poor = _.find(bp_data, function(o) { return o.perf_meas == 'Percent of NHS bridges by deck area classified as in poor condition'; });
+	var div_id = 'bridges-poor-viz';
+	var caption = 'Percent of NHS Bridges in Poor Condition';
+	var bridge_poor_state = _.find(bp_state_data, function(o) { return o.perf_meas == 'Percent of NHS bridges by deck area classified as in poor condition'; });
+	var bridge_poor_mpo   = _.find(bp_mpo_data, function(o) { return o.perf_meas == 'Percent of NHS bridges by deck area classified as in poor condition'; });
+	
+	yValues_state = [ bridge_poor_state.baseline, null, null, bridge_poor_state.targ_2023, null, bridge_poor_state.targ_2025 ];
+	yValues_mpo   = [ null, bridge_poor_mpo.cond_2021, null, null, null, null ];
+	generate_bp_viz(xValues, yValues_state, yValues_mpo, div_id, caption);
 	
 	
-	
-	
-	yValues = [ bridge_poor.baseline, bridge_poor.two_yr_targ, bridge_poor.four_yr_targ ];
-	bridge_poor_viz(xValues, yValues);
-	
-	
-	
+	return;	// for now		
 	
 	// Interstate pavement in GOOD condition
 	var interstate_good = _.find(bp_data, function(o) { return o.perf_meas == 'Percent of pavements on the Interstate System in good condition'; });    
