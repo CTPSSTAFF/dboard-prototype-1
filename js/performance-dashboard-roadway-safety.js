@@ -290,13 +290,30 @@ function roadway_injury_rate_viz(xValues, yValues_state_perf, yValues_state_targ
 	Plotly.newPlot('roadway-injury-rate-viz', data, layout);	
 } // roadway_injury_rate_viz
 
-function roadway_nonmotorized_viz(xValues, yValues_targ, yValues_perf) {
-	var trace_targ = { 
+function roadway_nonmotorized_viz(xValues, yValues_state_perf, yValues_state_targ, yValues_mpo_perf, div_id, caption) {
+	var trace_state_perf = {
 	  x: xValues,
-	  y: yValues_targ,
+	  y: yValues_state_perf,
+	  type: 'bar',
+	  name: 'Performance (State)',
+	  text: yValues_state_perf.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  marker: {
+		color: 'rgba(58,200,225,.5)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+	
+	var trace_state_targ = { 
+	  x: xValues,
+	  y: yValues_state_targ,
 	  type: 'bar',
 	  name: 'Target',
-	  text: yValues_targ.map(String),
+	  text: yValues_state_targ.map(String),
 	  textposition: 'auto',
 	  hoverinfo: 'none',
 	  opacity: 0.5,
@@ -309,31 +326,32 @@ function roadway_nonmotorized_viz(xValues, yValues_targ, yValues_perf) {
 	  }
 	};	
 	
-	var trace_perf = {
+	var trace_mpo_perf = {
 	  x: xValues,
-	  y: yValues_perf,
+	  y: yValues_mpo_perf,
 	  type: 'bar',
-	  name: 'Performance',
-	  text: yValues_perf.map(String),
+	  name: 'Performance (MPO)',
+	  text: yValues_mpo_perf.map(String),
 	  textposition: 'auto',
 	  hoverinfo: 'none',
 	  marker: {
-		color: 'rgba(58,200,225,.5)',
+		color: 'rgba(255,144,17,.5)',
 		line: {
 		  color: 'rgb(8,48,107)',
 		  width: 1.5
 		}
 	  }
-	};	
+	};
 	
-	var data = [trace_perf,trace_targ];
+	
+	var data = [trace_state_perf, trace_state_targ, trace_mpo_perf];
 
 	var layout = {
 		xaxis: { type: 'category' },
-		title: 'Number of non-motorized fatalities and non-motorized serious injuries'
+		title: caption
 	};
 
-	Plotly.newPlot('roadway-nonmotorized-viz', data, layout);
+	Plotly.newPlot(div_id, data, layout);
 } // roadway_non_motorized_viz
 	
 function roadway_safety_viz(rs_state_data, rs_mpo_data) {
@@ -414,15 +432,19 @@ function roadway_safety_viz(rs_state_data, rs_mpo_data) {
 	roadway_injury_rate_viz(xValues, yValues_state_perf, yValues_state_targ, yValues_mpo_perf, div_id, caption);
 	
 	
-	console.log('Returning from roadway_safety_viz');
-	return;
-	
-	
-	// 2 sets of Y values for nonmotorized fatalities+injuries
-	var non_mot = _.find(rs_data, function(o) {  return o.perf_meas == 'Number of non-motorized fatalities and non-motorized serious injuries'; });
-	yValues_targ = [ non_mot.targ_2023, non_mot.targ_2022, non_mot.targ_2021,
-	                 non_mot.targ_2020, non_mot.targ_2019 ];
-	yValues_perf = [ 0, non_mot.perf_2022, non_mot.perf_2021,
-	                 non_mot.perf_2020, non_mot.perf_2019 ];
-	roadway_nonmotorized_viz(xValues, yValues_targ, yValues_perf);
+	// Roadway non-motorized fatalities and serious injuries
+	var caption = 'Nonmotorized Fatalities and Serious Injuries - 5 year rolling average';
+	var div_id = 'roadway-injury-rate-viz';
+	var non_mot_state = _.find(rs_state_data, function(o) {  return o.perf_meas == 'Nonmotorized fatalities and nonmotorized serious injuries_5 year rolling average'; });
+	var non_mot_mpo   = _.find(rs_mpo_data, function(o) {  return o.perf_meas == 'Nonmotorized fatalities and nonmotorized serious injuries_5 year rolling average'; });
+
+	yValues_state_perf = [ non_mot_state.perf_2013, non_mot_state.perf_2014, non_mot_state.perf_2015, non_mot_state.perf_2016, non_mot_state.perf_2017, 
+						   non_mot_state.perf_2018, non_mot_state.perf_2019, non_mot_state.perf_2020, non_mot_state.perf_2021, non_mot_state.perf_2022 ];
+					 
+	yValues_state_targ = [ 0, 0, 0, 0, 0, 0, 0, non_mot_state.targ_2020, non_mot_state.targ_2021, non_mot_state.targ_2022 ];
+					 
+	yValues_mpo_perf =	[ non_mot_mpo.perf_2013, non_mot_mpo.perf_2014, non_mot_mpo.perf_2015, non_mot_mpo.perf_2016, non_mot_mpo.perf_2017, 
+						   non_mot_mpo.perf_2018, non_mot_mpo.perf_2019, non_mot_mpo.perf_2020, non_mot_mpo.perf_2021, non_mot_mpo.perf_2022 ];				 
+
+	roadway_nonmotorized_viz(xValues, yValues_state_perf, yValues_state_targ, yValues_mpo_perf, div_id, caption);
 } // roadway_safey_viz	
