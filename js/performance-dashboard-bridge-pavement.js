@@ -195,6 +195,7 @@ function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
 	var yValues_state = [], yValues_mpo = [];
 	var div_id = '';
 	var caption = '';
+	var layout = {};
 	
 	// NHS bridges in GOOD condition
 	div_id = 'bridges-good-viz';
@@ -204,7 +205,7 @@ function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
 	
 	yValues_state = [ bridge_good_state.baseline, null, null, bridge_good_state.targ_2023, null, bridge_good_state.targ_2025 ];
 	yValues_mpo   = [ null, bridge_good_mpo.cond_2021, null, null, null, null ];
-	var layout = {	
+	layout = {	
 		xaxis: { type: 'category' },
 		yaxis: { range: [0, 20] },
 		title: caption
@@ -230,7 +231,7 @@ function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
 	var interstate_good_state = _.find(bp_state_data, function(o) { return o.perf_meas == 'Percent of pavements on the Interstate System in good condition'; });    
 	// NOTE: There is **NO** interstate pavement condition data for the MPO only
 	yValues_state = [ interstate_good_state.baseline, null, null, interstate_good_state.targ_2023, null, interstate_good_state.targ_2025 ];		
-	var layout = {	
+	layout = {	
 		xaxis: { type: 'category' },
 		yaxis: { range: [0, 100] },
 		title: caption
@@ -246,17 +247,33 @@ function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
 	yValues_state = [ interstate_poor_state.baseline, null, null, interstate_poor_state.targ_2023, null, interstate_poor_state.targ_2025 ];	
 	layout.caption = caption;
 	layout.yaxis = { range: [0, 10] };
-	generate_bp_viz(xValues, yValues_state, null, layout, div_id, caption);
+	generate_bp_viz(xValues, yValues_state, null, layout, div_id);
 	
-	return; // for now
-	
-	
+
 	// Non-interstate NHS pavement in GOOD condition
-	var noninterstate_good = _.find(bp_data, function(o) { return o.perf_meas == 'Percent of pavements on the non-Interstate NHS in good condition'; });  
-	yValues = [ noninterstate_good.baseline, noninterstate_good.two_yr_targ, noninterstate_good.four_yr_targ ];
-	noninterstate_pavement_good_viz(xValues, yValues);	
+	div_id = 'non-interstate-pavement-good-viz';
+	caption = 'Percent of pavements on the non-Interstate NHS in good condition';
+	var noninterstate_good_state = _.find(bp_state_data, function(o) { return o.perf_meas == 'Percent of pavements on the non-Interstate NHS in good condition'; });  
+	var noninterstate_good_mpo   = _.find(bp_mpo_data, function(o) { return o.perf_meas == 'Percent of pavements on the non-Interstate NHS in good condition'; });
+	
+	yValues_state = [ noninterstate_good_state.baseline, null, null, noninterstate_good_state.targ_2023, null, noninterstate_good_state.targ_2025 ];
+	yValues_mpo   = [ null, noninterstate_good_mpo.cond_2021, null, null, null, null ];
+	layout = {	
+		xaxis: { type: 'category' },
+		title: caption
+	};
+	generate_bp_viz(xValues, yValues_state, yValues_mpo, layout, div_id);
+		
+	
+	
+	
+	return; // for now	
+	
+	
 	
 	// Non-interstate NHS pavement in POOR condition
+	div_id = 'non-interstate-pavement-poor-viz';
+	caption = 'Percent of pavements on the non-Interstate NHS in poor condition';
 	var noninterstate_poor = _.find(bp_data, function(o) { return o.perf_meas == 'Percent of pavements on the non-Interstate NHS in poor condition'; });  
 	yValues = [ noninterstate_poor.baseline, noninterstate_poor.two_yr_targ, noninterstate_poor.four_yr_targ ];		 
 	noninterstate_pavement_poor_viz(xValues, yValues);	
