@@ -83,7 +83,7 @@ function roadway_fatality_viz(xValues, yValues_state_perf, yValues_state_targ, y
 	  textposition: 'auto',
 	  hoverinfo: 'none',
 	  marker: {
-		color: 'rgba(58,200,225,.5)',
+		color: 'rgba(255,144,17,.5)',
 		line: {
 		  color: 'rgb(8,48,107)',
 		  width: 1.5
@@ -146,7 +146,7 @@ function roadway_fatality_rate_viz(xValues, yValues_state_perf, yValues_state_ta
 	  textposition: 'auto',
 	  hoverinfo: 'none',
 	  marker: {
-		color: 'rgba(58,200,225,.5)',
+		color: 'rgba(255,144,17,.5)',
 		line: {
 		  color: 'rgb(8,48,107)',
 		  width: 1.5
