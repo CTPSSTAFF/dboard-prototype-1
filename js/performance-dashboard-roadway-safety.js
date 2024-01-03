@@ -227,13 +227,30 @@ function roadway_injury_viz(xValues, yValues_state_perf, yValues_state_targ, yVa
 	Plotly.newPlot(div_id, data, layout);	
 } // oadway_injury_viz
 
-function roadway_injury_rate_viz(xValues, yValues_targ, yValues_perf) {
-	var trace_targ = { 
+function roadway_injury_rate_viz(xValues, yValues_state_perf, yValues_state_targ, yValues_mpo_perf, div_id, caption) {
+	var trace_state_perf = {
 	  x: xValues,
-	  y: yValues_targ,
+	  y: yValues_state_perf,
 	  type: 'bar',
-	  name: 'Target',
-	  text: yValues_targ.map(String),
+	  name: 'Performance (State)',
+	  text: yValues_state_perf.map(String),
+	  textposition: 'auto',
+	  hoverinfo: 'none',
+	  marker: {
+		color: 'rgba(58,200,225,.5)',
+		line: {
+		  color: 'rgb(8,48,107)',
+		  width: 1.5
+		}
+	  }
+	};	
+	
+	var trace_state_targ = { 
+	  x: xValues,
+	  y: yValues_state_targ,
+	  type: 'bar',
+	  name: 'Target (Sttate)',
+	  text: yValues_state_targ.map(String),
 	  textposition: 'auto',
 	  hoverinfo: 'none',
 	  opacity: 0.5,
@@ -246,16 +263,16 @@ function roadway_injury_rate_viz(xValues, yValues_targ, yValues_perf) {
 	  }
 	};	
 
-	var trace_perf = {
+	var trace_mpo_perf = {
 	  x: xValues,
-	  y: yValues_perf,
+	  y: yValues_mpo_perf,
 	  type: 'bar',
-	  name: 'Performance',
-	  text: yValues_perf.map(String),
+	  name: 'Performance (MPO)',
+	  text: yValues_mpo_perf.map(String),
 	  textposition: 'auto',
 	  hoverinfo: 'none',
 	  marker: {
-		color: 'rgba(58,200,225,.5)',
+		color: 'rgba(255,144,17,.5)',
 		line: {
 		  color: 'rgb(8,48,107)',
 		  width: 1.5
@@ -263,7 +280,7 @@ function roadway_injury_rate_viz(xValues, yValues_targ, yValues_perf) {
 	  }
 	};	
 	
-	var data = [trace_perf,trace_targ];
+	var data = [trace_state_perf, trace_state_targ, trace_mpo_perf];
 
 	var layout = {
 		xaxis: { type: 'category' },
@@ -326,7 +343,7 @@ function roadway_safety_viz(rs_state_data, rs_mpo_data) {
 	var xValues = [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022];
 	var yValues_state_perf = [], yValues_state_targ = [], yValues_mpo_perf = [];
 	
-	// 5-year rolling average of fatalities
+	// Roadway fatalities: 5-year rolling average
 	var caption = 'Roadway Fatalities - 5-year Rolling Average';
 	var div_id = 'roadway-fatalities-5-yr-viz';
 	var road_fat_state = _.find(rs_state_data, function(o) { return o.perf_meas == 'Fatalities_5 year rolling average'; });     
@@ -335,7 +352,7 @@ function roadway_safety_viz(rs_state_data, rs_mpo_data) {
 	yValues_state_perf = [ road_fat_state.perf_2013, road_fat_state.perf_2014, road_fat_state.perf_2015, road_fat_state.perf_2016,road_fat_state.perf_2017, 
 						   road_fat_state.perf_2018, road_fat_state.perf_2019, road_fat_state.perf_2020, road_fat_state.perf_2021, road_fat_state.perf_2022 ];
 						   
-	yValues_state_targ = [ 0, 0, 0, 0, 0, 0, 0, road_fat_state.perf_2020, road_fat_state.perf_2021, road_fat_state.perf_2022 ];
+	yValues_state_targ = [ 0, 0, 0, 0, 0, 0, 0, road_fat_state.targ_2020, road_fat_state.targ_2021, road_fat_state.targ_2022 ];
 						   
 	yValues_mpo_perf = [ road_fat_mpo.perf_2013, road_fat_mpo.perf_2014, road_fat_mpo.perf_2015, road_fat_mpo.perf_2016,road_fat_mpo.perf_2017, 
 						 road_fat_mpo.perf_2018, road_fat_mpo.perf_2019, road_fat_mpo.perf_2020, road_fat_mpo.perf_2021, road_fat_mpo.perf_2022 ];	
@@ -344,7 +361,7 @@ function roadway_safety_viz(rs_state_data, rs_mpo_data) {
 	
 	
 	// Fatality rate for 100 million Vehicle Miles Traveled
-	var caption = 'Roadway Fatalities - 5-year Rolling Average';
+	var caption = 'Roadway Fatality Rate per 100 million VMT';
 	var div_id = 'roadway-fatality-rate-viz';
 	var road_fat_rate_state = _.find(rs_state_data, function(o) { return o.perf_meas == 'Fatality rate per 100 million Vehicle Miles Traveled'; });
 	var road_fat_rate_mpo   = _.find(rs_mpo_data, function(o) { return o.perf_meas == 'Fatality rate per 100 million Vehicle Miles Traveled'; });
@@ -353,17 +370,15 @@ function roadway_safety_viz(rs_state_data, rs_mpo_data) {
 	yValues_state_perf = [ road_fat_rate_state.perf_2013, road_fat_rate_state.perf_2014, road_fat_rate_state.perf_2015, road_fat_rate_state.perf_2016, road_fat_rate_state.perf_2017, 
 						   road_fat_rate_state.perf_2018, road_fat_rate_state.perf_2019, road_fat_rate_state.perf_2020, road_fat_rate_state.perf_2021, road_fat_rate_state.perf_2022 ];
 						   
-	yValues_state_targ = [ 0, 0, 0, 0, 0, 0, 0, road_fat_rate_state.perf_2020, road_fat_rate_state.perf_2021, road_fat_rate_state.perf_2022 ];
+	yValues_state_targ = [ 0, 0, 0, 0, 0, 0, 0, road_fat_rate_state.targ_2020, road_fat_rate_state.targ_2021, road_fat_rate_state.targ_2022 ];
 						   
 	yValues_mpo_perf = [ road_fat_rate_mpo.perf_2013, road_fat_rate_mpo.perf_2014, road_fat_rate_mpo.perf_2015, road_fat_rate_mpo.perf_2016,road_fat_rate_mpo.perf_2017, 
 						 road_fat_rate_mpo.perf_2018, road_fat_rate_mpo.perf_2019, road_fat_rate_mpo.perf_2020, road_fat_rate_mpo.perf_2021, road_fat_rate_mpo.perf_2022 ];	
 				
 	roadway_fatality_rate_viz(xValues, yValues_state_perf, yValues_state_targ, yValues_mpo_perf, div_id, caption);
 	
-
 	
-	
-	// 2 sets of Y values for roadway injuries
+	// Roadway serious injuries: 5-year rolling average
 	var caption = 'Roadway Serious Injuries - 5-year Rolling Average';
 	var div_id = 'roadway-injuries-viz';
 	var road_inj_state = _.find(rs_state_data, function(o) {  return o.perf_meas == 'Serious Injuries_5 year rolling average'; });
@@ -372,7 +387,7 @@ function roadway_safety_viz(rs_state_data, rs_mpo_data) {
 	yValues_state_perf = [ road_inj_state.perf_2013, road_inj_state.perf_2014, road_inj_state.perf_2015, road_inj_state.perf_2016,road_inj_state.perf_2017, 
 						   road_inj_state.perf_2018, road_inj_state.perf_2019, road_inj_state.perf_2020, road_inj_state.perf_2021, road_inj_state.perf_2022 ];
 					 
-	yValues_state_targ = [ 0, 0, 0, 0, 0, 0, 0, road_inj_state.perf_2020, road_inj_state.perf_2021, road_inj_state.perf_2022 ];
+	yValues_state_targ = [ 0, 0, 0, 0, 0, 0, 0, road_inj_state.targ_2020, road_inj_state.targ_2021, road_inj_state.targ_2022 ];
 				
 	yValues_mpo_perf = [ road_inj_mpo.perf_2013, road_inj_mpo.perf_2014, road_inj_mpo.perf_2015, road_inj_mpo.perf_2016,road_inj_mpo.perf_2017, 
 						 road_inj_mpo.perf_2018, road_inj_mpo.perf_2019, road_inj_mpo.perf_2020, road_inj_mpo.perf_2021, road_inj_mpo.perf_2022 ];				
@@ -380,19 +395,28 @@ function roadway_safety_viz(rs_state_data, rs_mpo_data) {
 	roadway_injury_viz(xValues, yValues_state_perf, yValues_state_targ, yValues_mpo_perf, div_id, caption);
 	
 	
+	// Serious injury rate for 100 million Vehicle Miles Traveled
+	var caption = 'Roadway Serious Injury Rate per 100 million VMT';
+	var div_id = 'roadway-injury-rate-viz';
+	var road_inj_rate_state = _.find(rs_state_data, function(o) {  return o.perf_meas == 'Serious injury rate per 100 million Vehicle Miles Traveled'; });
+	var road_inj_rate_mpo   = _.find(rs_mpo_data, function(o) {  return o.perf_meas == 'Serious injury rate per 100 million Vehicle Miles Traveled'; });
+	
+	
+	yValues_state_perf = [ road_inj_rate_state.perf_2013, road_inj_rate_state.perf_2014, road_inj_rate_state.perf_2015, road_inj_rate_state.perf_2016, road_inj_rate_state.perf_2017, 
+						   road_inj_rate_state.perf_2018, road_inj_rate_state.perf_2019, road_inj_rate_state.perf_2020, road_inj_rate_state.perf_2021, road_inj_rate_state.perf_2022  ];
+					 
+					 
+	yValues_state_targ = [ 0, 0, 0, 0, 0, 0, 0, road_inj_rate_state.targ_2020, road_inj_rate_state.targ_2021, road_inj_rate_state.targ_2022 ];
+	
+	yValues_mpo_perf = [ road_inj_rate_mpo.perf_2013, road_inj_rate_mpo.perf_2014, road_inj_rate_mpo.perf_2015, road_inj_rate_mpo.perf_2016, road_inj_rate_mpo.perf_2017, 
+						 road_inj_rate_mpo.perf_2018, road_inj_rate_mpo.perf_2019, road_inj_rate_mpo.perf_2020, road_inj_rate_mpo.perf_2021, road_inj_rate_mpo.perf_2022 ];
+	
+	roadway_injury_rate_viz(xValues, yValues_state_perf, yValues_state_targ, yValues_mpo_perf, div_id, caption);
 	
 	
 	console.log('Returning from roadway_safety_viz');
-	return;		
+	return;
 	
-	
-	// 2 sets of Y values for roadway injury rate
-	var road_inj_rate = _.find(rs_data, function(o) {  return o.perf_meas == 'Serious injury rate per 100 million vehicle-miles traveled'; });
-	yValues_targ = [ road_inj_rate.targ_2023, road_inj_rate.targ_2022, road_inj_rate.targ_2021,
-	                 road_inj_rate.targ_2020, road_inj_rate.targ_2019 ];
-	yValues_perf = [ 0, road_inj_rate.perf_2022, road_inj_rate.perf_2021,
-	                 road_inj_rate.perf_2020, road_inj_rate.perf_2019 ];
-	roadway_injury_rate_viz(xValues, yValues_targ, yValues_perf);
 	
 	// 2 sets of Y values for nonmotorized fatalities+injuries
 	var non_mot = _.find(rs_data, function(o) {  return o.perf_meas == 'Number of non-motorized fatalities and non-motorized serious injuries'; });
