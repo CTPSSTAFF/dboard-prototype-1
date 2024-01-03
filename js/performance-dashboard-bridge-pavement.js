@@ -160,6 +160,38 @@ function noninterstate_pavement_poor_viz(xValues, yValues) {
 function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
 	
 	console.log('Entered bridge_pavement_viz');
+	
+	///////////////////////////
+	
+	var trace1 = {
+	  x: [1, 2, 3, 4, 5, 6, 7, 8],
+	  y: [10, 15, null, 17, 14, 12, 10, null, 15],
+	  mode: 'lines+markers',
+	  connectgaps: true
+	};
+
+	var trace2 = {
+	  x: [1, 2, 3, 4, 5, 6, 7, 8],
+	  y: [16, null, 13, 10, 8, null, 11, 12],
+	  mode: 'lines',
+	  connectgaps: true
+	};
+
+	var data = [trace1, trace2];
+
+	var layout = {
+	  title: 'Connect the Gaps Between Data' // ,
+	  // showlegend: false
+	};
+
+	Plotly.newPlot('interstate-pavement-good-viz', data, layout);
+
+	
+	
+	
+	///////////////////////////
+	
+	
 	return;	// for now
 	
 	// Generate line charts for the bridge and pavement data
