@@ -93,7 +93,7 @@ function generate_roadway_safety_viz(xValues, yValues_state_perf, yValues_state_
 		}
 	  }
 	};
-	var config = {responsive: true};
+	var config = { responsive: true };
 	var data = [];
 	if (yValues_state_targ != null) {
 		data = [trace_state_perf, trace_state_targ, trace_mpo_perf, config];
@@ -111,7 +111,7 @@ function roadway_safety_viz(rs_state_data, rs_mpo_data) {
 	var div_id = '';
 	var layout = {
 		autosize: true,
-		width: 	1020,
+		width: 	1000,
 		xaxis: { type: 'category',
 				 automargin: true },
 		yaxis: { automargin: true }
