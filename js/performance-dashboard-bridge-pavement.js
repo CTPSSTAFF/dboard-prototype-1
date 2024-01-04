@@ -15,146 +15,6 @@ var b_and_p_mpo_RowConverter = function(d) {
 	}
 };
 
-function bridge_good_viz(xValues, yValues) {
-	var data = [
-	  {
-		x: xValues,
-		y: yValues,
-		type: 'bar',
-		name: 'Target',
-	    text: yValues.map(String),
-	    textposition: 'auto',
-	    hoverinfo: 'none',
-	    opacity: 0.75,
-	  }
-	];
-
-	var layout = {
-		xaxis: { type: 'category' },
-		title: 'Percent of NHS bridges by deck area classified as in good condition'
-	};
-
-	Plotly.newPlot('bridges-good-viz', data, layout);	
-}
-
-function bridge_poor_viz(xValues, yValues) {
-	var data = [
-	  {
-		x: xValues,
-		y: yValues,
-		type: 'bar',
-		name: 'Target',
-	    text: yValues.map(String),
-	    textposition: 'auto',
-		marker: {
-			color: 'orange'
-		},
-	    hoverinfo: 'none',
-	    opacity: 0.75,
-	  }
-	];
-
-	var layout = {
-		xaxis: { type: 'category' },
-		title: 'Percent of NHS bridges by deck area classified as in poor condition'
-	};
-
-	Plotly.newPlot('bridges-poor-viz', data, layout);
-}
-
-function interstate_pavement_good_viz(xValues, yValues) {
-	var data = [
-	  {
-		x: xValues,
-		y: yValues,
-		type: 'bar',
-		name: 'Target',
-	    text: yValues.map(String),
-	    textposition: 'auto',
-	    hoverinfo: 'none',
-	    opacity: 0.75,
-	  }
-	];
-
-	var layout = {
-		xaxis: { type: 'category' },
-		title: 'Percent of Pavement on the Interstate System in Good Condition'
-	};
-
-	Plotly.newPlot('interstate-pavement-good-viz', data, layout);
-}
-
-function interstate_pavement_poor_viz(xValues, yValues) {
-	var data = [
-	  {
-		x: xValues,
-		y: yValues,
-		type: 'bar',
-		name: 'Target',
-	    text: yValues.map(String),
-	    textposition: 'auto',
-		marker: {
-			color: 'orange'
-		},
-	    hoverinfo: 'none',
-	    opacity: 0.75,
-	  }
-	];
-
-	var layout = {
-		xaxis: { type: 'category' },
-		title: 'Percent of Pavement on the Interstate System in Poor Condition'
-	};
-
-	Plotly.newPlot('interstate-pavement-poor-viz', data, layout);	
-}
-
-function noninterstate_pavement_good_viz(xValues, yValues) {
-	var data = [
-	  {
-		x: xValues,
-		y: yValues,
-		type: 'bar',
-		name: 'Target',
-	    text: yValues.map(String),
-	    textposition: 'auto',
-	    hoverinfo: 'none',
-	    opacity: 0.75,
-	  }
-	];
-
-	var layout = {
-		xaxis: { type: 'category' },
-		title: 'Percent of pavements on the non-Interstate NHS in Good Condition'
-	};
-
-	Plotly.newPlot('non-interstate-pavement-good-viz', data, layout);	
-}
-
-function noninterstate_pavement_poor_viz(xValues, yValues) {
-	var data = [
-	  {
-		x: xValues,
-		y: yValues,
-		type: 'bar',
-		name: 'Target',
-	    text: yValues.map(String),
-	    textposition: 'auto',
-		marker: {
-			color: 'orange'
-		},
-	    hoverinfo: 'none',
-	    opacity: 0.75,
-	  }
-	];
-
-	var layout = {
-		xaxis: { type: 'category' },
-		title: 'Percent of pavements on the non-Interstate NHS in Poor Condition'
-	};
-
-	Plotly.newPlot('non-interstate-pavement-poor-viz', data, layout);	
-}
 
 
 function generate_bp_viz(xValues, yValues_state, yValues_mpo, layout, div_id) {
@@ -183,7 +43,9 @@ function generate_bp_viz(xValues, yValues_state, yValues_mpo, layout, div_id) {
 		data = [trace_state];
 	}
 	
-	Plotly.newPlot(div_id, data, layout);
+	var config = {responsive: true};
+	
+	Plotly.newPlot(div_id, data, layout, config);
 } //generate_bp_viz
 
 function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
@@ -205,8 +67,14 @@ function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
 	yValues_state = [ bridge_good_state.baseline, null, null, bridge_good_state.targ_2023, null, bridge_good_state.targ_2025 ];
 	yValues_mpo   = [ null, bridge_good_mpo.cond_2021, null, null, null, null ];
 	layout = {	
-		xaxis: { type: 'category' },
-		yaxis: { range: [0, 20] },
+		autosize: false,
+		width: 1000,
+		height: 500,
+
+		xaxis: { type: 'category',
+				 automargin: true },
+		yaxis: { range: [0, 20],
+                 automargin: true },
 		title: 'Percent of NHS Bridges in Good Condition'
 	};
 	generate_bp_viz(xValues, yValues_state, yValues_mpo, layout, div_id);
