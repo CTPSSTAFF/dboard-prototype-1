@@ -254,4 +254,18 @@ function roadway_safety_viz(rs_state_data, rs_mpo_data) {
 						  non_mot_fat_mpo.perf_2018, non_mot_fat_mpo.perf_2019, non_mot_fat_mpo.perf_2020, non_mot_fat_mpo.perf_2021, non_mot_fat_mpo.perf_2022 ];	
 	
 	generate_roadway_safety_viz(xValues, yValues_state_perf, null, yValues_mpo_perf, div_id, mylayout);
+	
+	
+	// Vehicle Miles Traveled
+	div_id = 'vmt-viz';
+	mylayout = JSON.parse(JSON.stringify(layout));
+	mylayout.title = 'Vehicle Miles Traveled (in millions)';
+	var vmt_state = _.find(rs_state_data, function(o) { return o.perf_meas == 'Vehicle Miles Traveled'; });
+	var vmt_mpo =  _.find(rs_mpo_data, function(o) { return o.perf_meas == 'Vehicle Miles Traveled'; });
+	yValues_state_perf = [ vmt_state.perf_2013, vmt_state.perf_2014, vmt_state.perf_2015, vmt_state.perf_2016, vmt_state.perf_2017, 
+						   vmt_state.perf_2018, vmt_state.perf_2019, vmt_state.perf_2020, vmt_state.perf_2021, vmt_state.perf_2022 ];
+	// NOTE: There are no statewide targets for this metric
+	yValues_mpo_perf = [ vmt_mpo.perf_2013, vmt_mpo.perf_2014, vmt_mpo.perf_2015, vmt_mpo.perf_2016, vmt_mpo.perf_2017, 
+						 vmt_mpo.perf_2018, vmt_mpo.perf_2019, vmt_mpo.perf_2020, vmt_mpo.perf_2021, vmt_mpo.perf_2022 ];
+	generate_roadway_safety_viz(xValues, yValues_state_perf, null, yValues_mpo_perf, div_id, mylayout);
 } // roadway_safey_viz	
