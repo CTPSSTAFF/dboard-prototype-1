@@ -67,10 +67,8 @@ function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
 	yValues_state = [ bridge_good_state.baseline, null, null, bridge_good_state.targ_2023, null, bridge_good_state.targ_2025 ];
 	yValues_mpo   = [ null, bridge_good_mpo.cond_2021, null, null, null, null ];
 	layout = {	
-		autosize: false,
-		width: 1000,
-		height: 500,
-
+		autosize: true,
+		width: 	1000,
 		xaxis: { type: 'category',
 				 automargin: true },
 		yaxis: { range: [0, 20],
@@ -88,8 +86,12 @@ function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
 	yValues_state = [ bridge_poor_state.baseline, null, null, bridge_poor_state.targ_2023, null, bridge_poor_state.targ_2025 ];
 	yValues_mpo   = [ null, bridge_poor_mpo.cond_2021, null, null, null, null ];
 	layout = {	
-		xaxis: { type: 'category' },
-		yaxis: { range: [0, 20] },
+		autosize: true,
+		width: 	1000,
+		xaxis: { type: 'category',
+				 automargin: true },
+		yaxis: { range: [0, 20],
+				 automargin: true },
 		title: 'Percent of NHS Bridges in Poor Condition'
 	};
 	generate_bp_viz(xValues, yValues_state, yValues_mpo, layout, div_id);
@@ -101,8 +103,12 @@ function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
 	// NOTE: There is **NO** interstate pavement condition data for the MPO only
 	yValues_state = [ interstate_good_state.baseline, null, null, interstate_good_state.targ_2023, null, interstate_good_state.targ_2025 ];		
 	layout = {	
-		xaxis: { type: 'category' },
-		yaxis: { range: [0, 100] },
+		autosize: true,
+		width: 	1000,
+		xaxis: { type: 'category',
+				 automargin: true },
+		yaxis: { range: [0, 100],
+				 automargin: true },
 		title: 'Percent of Pavements on the Interstate System in Good Condition'
 	};
 	generate_bp_viz(xValues, yValues_state, null, layout, div_id);
@@ -115,8 +121,12 @@ function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
 	// NOTE: There is **NO** interstate pavement condition data for the MPO only
 	yValues_state = [ interstate_poor_state.baseline, null, null, interstate_poor_state.targ_2023, null, interstate_poor_state.targ_2025 ];	
 	layout = {	
-		xaxis: { type: 'category' },
-		yaxis: { range: [0, 100] },
+		autosize: true,
+		width: 	1000,
+		xaxis: { type: 'category',
+				 automargin: true },
+		yaxis: { range: [0, 100],
+				 automargin: true },
 		title: 'Percent of Pavements on the Interstate System in Poor Condition'
 	};
 	generate_bp_viz(xValues, yValues_state, null, layout, div_id);
@@ -130,7 +140,11 @@ function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
 	yValues_state = [ noninterstate_good_state.baseline, null, null, noninterstate_good_state.targ_2023, null, noninterstate_good_state.targ_2025 ];
 	yValues_mpo   = [ null, noninterstate_good_mpo.cond_2021, null, null, null, null ];
 	layout = {	
-		xaxis: { type: 'category' },
+		autosize: true,
+		width: 	1000,
+		xaxis: { type: 'category',
+				 automargin: true },
+		yaxix: { automargin: true },
 		title: 'Percent of pavements on the non-Interstate NHS in Good condition'
 	};
 	generate_bp_viz(xValues, yValues_state, yValues_mpo, layout, div_id);
@@ -144,7 +158,11 @@ function bridge_pavement_viz(bp_state_data, bp_mpo_data) {
 	yValues_state = [ noninterstate_poor_state.baseline, null, null, noninterstate_poor_state.targ_2023, null, noninterstate_poor_state.targ_2025 ];
 	yValues_mpo   = [ null, noninterstate_poor_mpo.cond_2021, null, null, null, null ];	
 	layout = {	
-		xaxis: { type: 'category' },
+		autosize: true,
+		width: 	1000,
+		xaxis: { type: 'category',
+				 automargin: true },
+		yaxis: { automargin: true  },
 		title: 'Percent of pavements on the non-Interstate NHS in Poor condition'
 	};
 	generate_bp_viz(xValues, yValues_state, yValues_mpo, layout, div_id);	
