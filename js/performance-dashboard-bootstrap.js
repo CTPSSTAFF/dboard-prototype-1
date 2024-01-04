@@ -23,7 +23,7 @@ var roadwaySafety_state_URL 	= 'csv/PBPP_Dashboard_Roadway_Safety_State_Totals.c
 function initialize() {
 	Promise.all([
 		d3.csv(roadwaySafety_state_URL , rs_state_RowConverter),
-		d3.csv(roadwaySafety_state_URL , rs_mpo_RowConverter),
+		d3.csv(roadwaySafety_mpo_URL , rs_mpo_RowConverter),
 		d3.csv(transitSafety_mpo_URL, ts_mpo_RowConverter),
 		d3.csv(tam_mpo_URL, tam_mpo_RowConverter),
 		d3.csv(bridgeAndPavement_state_URL, b_and_p_state_RowConverter),
