@@ -56,23 +56,26 @@ function generate_roadway_safety_viz(xValues, yValues_state_perf, yValues_state_
 	  }
 	};	
 	// 'trace' for statewide target data
-	var trace_state_targ = { 
-	  x: xValues,
-	  y: yValues_state_targ,
-	  type: 'bar',
-	  name: 'Target (State)',
-	  text: yValues_state_targ.map(String),
-	  textposition: 'auto',
-	  hoverinfo: 'none',
-	  opacity: 0.5,
-	  marker: {
-		color: 'rgb(158,202,225)',
-		line: {
-		  color: 'rgb(8,48,107)',
-		  width: 1.5
-		}
-	  }
-	};	
+	// There are some metrics for which there is no statewide target data.
+	if (yValues_state_targ != null) {
+		var trace_state_targ = { 
+		  x: xValues,
+		  y: yValues_state_targ,
+		  type: 'bar',
+		  name: 'Target (State)',
+		  text: yValues_state_targ.map(String),
+		  textposition: 'auto',
+		  hoverinfo: 'none',
+		  opacity: 0.5,
+		  marker: {
+			color: 'rgb(158,202,225)',
+			line: {
+			  color: 'rgb(8,48,107)',
+			  width: 1.5
+			}
+		  }
+		};
+	}
 	// 'trace' for MPO performance data
 	var trace_mpo_perf = {
 	  x: xValues,
@@ -91,7 +94,12 @@ function generate_roadway_safety_viz(xValues, yValues_state_perf, yValues_state_
 	  }
 	};
 	var config = {responsive: true};
-	var data = [trace_state_perf, trace_state_targ, trace_mpo_perf, config];
+	var data = [];
+	if (yValues_state_targ != null) {
+		data = [trace_state_perf, trace_state_targ, trace_mpo_perf, config];
+	} else {
+		data = [trace_state_perf, trace_mpo_perf, config];
+	}
 	Plotly.newPlot(div_id, data, layout);	
 } // generate_roadway_safety_viz
 	
@@ -138,11 +146,11 @@ function roadway_safety_viz(rs_state_data, rs_mpo_data) {
 	
 	yValues_state_perf = [ road_fat_1yr_state.perf_2013, road_fat_1yr_state.perf_2014, road_fat_1yr_state.perf_2015, road_fat_1yr_state.perf_2016, road_fat_1yr_state.perf_2017, 
 						   road_fat_1yr_state.perf_2018, road_fat_1yr_state.perf_2019, road_fat_1yr_state.perf_2020, road_fat_1yr_state.perf_2021, road_fat_1yr_state.perf_2022 ];
-	yValues_state_targ = [ null, null, null, null, null, null, null, road_fat_1yr_state.targ_2020, road_fat_1yr_state.targ_2021, road_fat_1yr_state.targ_2022 ];
+	// NOTE: No statewide targets for this metric
 	yValues_mpo_perf = [ road_fat_1yr_mpo.perf_2013, road_fat_1yr_mpo.perf_2014, road_fat_1yr_mpo.perf_2015, road_fat_1yr_mpo.perf_2016, road_fat_1yr_mpo.perf_2017, 
 						 road_fat_1yr_mpo.perf_2018, road_fat_1yr_mpo.perf_2019, road_fat_1yr_mpo.perf_2020, road_fat_1yr_mpo.perf_2021, road_fat_1yr_mpo.perf_2022 ];	
 	
-	generate_roadway_safety_viz(xValues, yValues_state_perf, yValues_state_targ, yValues_mpo_perf, div_id, mylayout);
+	generate_roadway_safety_viz(xValues, yValues_state_perf, null, yValues_mpo_perf, div_id, mylayout);
 
 	// Fatality rate for 100 million Vehicle Miles Traveled
 	div_id = 'roadway-fatality-rate-viz';
@@ -188,11 +196,11 @@ function roadway_safety_viz(rs_state_data, rs_mpo_data) {
 	
 	yValues_state_perf = [ road_inj_1yr_state.perf_2013, road_inj_1yr_state.perf_2014, road_inj_1yr_state.perf_2015, road_inj_1yr_state.perf_2016, road_inj_1yr_state.perf_2017, 
 						   road_inj_1yr_state.perf_2018, road_inj_1yr_state.perf_2019, road_inj_1yr_state.perf_2020, road_inj_1yr_state.perf_2021, road_inj_1yr_state.perf_2022 ];
-	yValues_state_targ = [ null, null, null, null, null, null, null, road_inj_1yr_state.targ_2020, road_inj_1yr_state.targ_2021, road_inj_1yr_state.targ_2022 ];
+	// NOTE: There are no statewide targets for this metric
 	yValues_mpo_perf = [ road_inj_1yr_mpo.perf_2013, road_inj_1yr_mpo.perf_2014, road_inj_1yr_mpo.perf_2015, road_inj_1yr_mpo.perf_2016, road_inj_1yr_mpo.perf_2017, 
 						 road_inj_1yr_mpo.perf_2018, road_inj_1yr_mpo.perf_2019, road_inj_1yr_mpo.perf_2020, road_inj_1yr_mpo.perf_2021, road_inj_1yr_mpo.perf_2022 ];				
 					
-	generate_roadway_safety_viz(xValues, yValues_state_perf, yValues_state_targ, yValues_mpo_perf, div_id, mylayout);
+	generate_roadway_safety_viz(xValues, yValues_state_perf, null, yValues_mpo_perf, div_id, mylayout);
 	
 	
 	// Serious injury rate for 100 million Vehicle Miles Traveled
@@ -239,9 +247,9 @@ function roadway_safety_viz(rs_state_data, rs_mpo_data) {
 	
 	yValues_state_perf = [ non_mot_fat_state.perf_2013, non_mot_fat_state.perf_2014, non_mot_fat_state.perf_2015, non_mot_fat_state.perf_2016, non_mot_fat_state.perf_2017, 
 						   non_mot_fat_state.perf_2018, non_mot_fat_state.perf_2019, non_mot_fat_state.perf_2020, non_mot_fat_state.perf_2021, non_mot_fat_state.perf_2022 ];
-	yValues_state_targ = [ null, null, null, null, null, null, null, non_mot_fat_state.targ_2020, non_mot_fat_state.targ_2021, non_mot_fat_state.targ_2022 ];
+	// NOTE: There are no statewide targets for this metric
 	yValues_mpo_perf =	[ non_mot_fat_mpo.perf_2013, non_mot_fat_mpo.perf_2014, non_mot_fat_mpo.perf_2015, non_mot_fat_mpo.perf_2016, non_mot_fat_mpo.perf_2017, 
 						   non_mot_fat_mpo.perf_2018, non_mot_fat_mpo.perf_2019, non_mot_fat_mpo.perf_2020, non_mot_fat_mpo.perf_2021, non_mot_fat_mpo.perf_2022 ];	
 	
-	generate_roadway_safety_viz(xValues, yValues_state_perf, yValues_state_targ, yValues_mpo_perf, div_id, mylayout);
+	generate_roadway_safety_viz(xValues, yValues_state_perf, null, yValues_mpo_perf, div_id, mylayout);
 } // roadway_safey_viz	
