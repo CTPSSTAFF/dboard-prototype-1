@@ -66,13 +66,15 @@ function generate_roadway_safety_viz(xValues, yValues_state_perf, yValues_state_
 		  text: yValues_state_targ.map(String),
 		  textposition: 'auto',
 		  hoverinfo: 'none',
-		  opacity: 0.5,
+		 //  opacity: 0.5,
 		  marker: {
-			color: 'rgb(158,202,225)',
+			// color: 'rgb(158,202,225)',
+			color: 'rgb(206,228,240)',
 			line: {
 			  color: 'rgb(8,48,107)',
 			  width: 1.5
-			}
+			},
+			pattern: { fillmode: 'overlay', shape: 'X' }
 		  }
 		};
 	}
@@ -249,7 +251,7 @@ function roadway_safety_viz(rs_state_data, rs_mpo_data) {
 						   non_mot_fat_state.perf_2018, non_mot_fat_state.perf_2019, non_mot_fat_state.perf_2020, non_mot_fat_state.perf_2021, non_mot_fat_state.perf_2022 ];
 	// NOTE: There are no statewide targets for this metric
 	yValues_mpo_perf =	[ non_mot_fat_mpo.perf_2013, non_mot_fat_mpo.perf_2014, non_mot_fat_mpo.perf_2015, non_mot_fat_mpo.perf_2016, non_mot_fat_mpo.perf_2017, 
-						   non_mot_fat_mpo.perf_2018, non_mot_fat_mpo.perf_2019, non_mot_fat_mpo.perf_2020, non_mot_fat_mpo.perf_2021, non_mot_fat_mpo.perf_2022 ];	
+						  non_mot_fat_mpo.perf_2018, non_mot_fat_mpo.perf_2019, non_mot_fat_mpo.perf_2020, non_mot_fat_mpo.perf_2021, non_mot_fat_mpo.perf_2022 ];	
 	
 	generate_roadway_safety_viz(xValues, yValues_state_perf, null, yValues_mpo_perf, div_id, mylayout);
 } // roadway_safey_viz	
