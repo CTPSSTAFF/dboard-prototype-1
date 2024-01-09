@@ -48,7 +48,7 @@ function generate_roadway_safety_viz(xValues, yValues_state_perf, yValues_state_
 	  textposition: 'auto',
 	  hoverinfo: 'none',
 	  marker: {
-		color: 'rgba(58,200,225,.5)',
+		color: 'rgba(58,200,225,.75)',
 		line: {
 		  color: 'rgb(8,48,107)',
 		  width: 1.5
@@ -69,12 +69,11 @@ function generate_roadway_safety_viz(xValues, yValues_state_perf, yValues_state_
 		 //  opacity: 0.5,
 		  marker: {
 			// color: 'rgb(158,202,225)',
-			color: 'rgb(206,228,240)',
+			color: 'rgb(00,204,107,.75)',
 			line: {
 			  color: 'rgb(8,48,107)',
 			  width: 1.5
-			},
-			pattern: { fillmode: 'overlay', shape: 'X' }
+			}
 		  }
 		};
 	}
@@ -88,7 +87,7 @@ function generate_roadway_safety_viz(xValues, yValues_state_perf, yValues_state_
 	  textposition: 'auto',
 	  hoverinfo: 'none',
 	  marker: {
-		color: 'rgba(255,144,17,.5)',
+		color: 'rgba(255,144,17,.75)',
 		line: {
 		  color: 'rgb(8,48,107)',
 		  width: 1.5
