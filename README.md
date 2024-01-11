@@ -6,7 +6,7 @@ Prototype # 1 of 'Performance Dashboard'.
 * bootstrap - for layout
 * plotly.js - for data viz
 * d3.js - for CSV loading / parsing
-* jquery.js - for DOM navigation \(not currently used\)
+* jquery.js - for event management and DOM navigation \(not currently used for the latter\)
 * lodash.js - functional programming utilities
 
 ## Data Viz Types
