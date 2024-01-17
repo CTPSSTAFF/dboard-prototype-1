@@ -30,7 +30,7 @@ function initialize() {
 		d3.csv(bridgeAndPavement_mpo_URL, b_and_p_mpo_RowConverter),
 		d3.csv(ttr_state_URL, ttr_state_RowConverter),
 		d3.csv(ttr_mpo_URL, ttr_mpo_RowConverter),
-		d3.csv(cmaqURL, cmaq_mpo_RowConverter)
+		d3.csv(cmaq_mpo_URL, cmaq_mpo_RowConverter)
 	]).then(function(files) {
 		rs_state_data 	= files[0];
 		rs_mpo_data 	= files[1];
