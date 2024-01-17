@@ -1,12 +1,3 @@
-// URLs for CSV files to be loaded
-var roadwaySafetyURL 	= 'csv/roadway_safety.csv',
-	transitSafetyURL 	= 'csv/transit_safety.csv',
-	bridgeAndPavementURL = 'csv/bridge_and_pavement.csv',
-	tamURL				= 'csv/tam.csv',
-	ttrURL				= 'csv/ttr.csv',
-	cmaqURL				= 'csv/cmaq.csv';
-
-
 // CSV parser for transit safety CSV file
 var ts_mpo_RowConverter = function(d) {
 	return {
