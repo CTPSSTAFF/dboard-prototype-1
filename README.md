@@ -29,6 +29,22 @@ The CSV files have been copied into this repo, and have been renamed \(by
 replacing blanks and other non-alphanumeric characters with underscores\) 
 in order to have file names that won't be problematical on LINUX-based web servers.
 
+There are 6 categories of performance data rendered by the app.
+For some categories, there is both 'statewide' and 'MPO area' data;
+for others, there is only 'MPO area' data. When there is both 'statewide'
+and 'MPO area' data for a given category, it is stored in _separate_ CSV files 
+that do not necessarily have identical 'schemas' \(i.e.,e row- and column-organization\).
+The following table summarizes this situation:
+
+| Category | Statewide | MPO area |
+| --- | --- | --- |
+| Roadway Safety | x | x |
+| Transit Safety |  | x |
+| Transit Asset Management |  | x |
+| Bridge and Pavement Condition | x | x |
+| Travel-time Reliability | x | x |
+| CMAQ |  | x |
+
 # Page Layout 
 The layout of the single page containing the was created using [Bootstrap](https://getbootstrap.com/).
 The layout organizes the page into a number of 'pills' \(similar to 'tabs'\).
@@ -115,3 +131,16 @@ When all the CSV files have been successfully loaded, the __Part 2__ function is
 \(If there were errors loading the CSV files, the __Part 3__ function is called.)
 Part 2 simply passes the results of parsing the CSV files to the main 'driver' function
 responsible for generating the visualizations of each 'class' of performance data.
+
+### The Catecory-Specific Code
+There is one main 'driver' routine for producing the visualization for each
+of the 6 categories of performance data. Depending upon whether there is both
+'statewide' and 'MPO area' or only 'MPO area' data for a particular category,
+the main 'driver' for it is passed either two or one parameters. The values 
+passed for these parameters are the _parsed_ data read from the relevant CSV file\(s\).
+
+The main business of these 'driver' routines are to extract information from the 
+raw parsed data passed to it, and 'package' it in a form suitable for the 
+generation of each required visualization. The driver routines then call one 
+or more category-specific routines that contain the code to generate a plotly.js
+visualization.
